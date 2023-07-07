@@ -13,41 +13,37 @@ recipeRouter.get("/", async (req, res) => {
     // O Envia la lista completa de recetas de la BBDD.
     try {        
         const { name } = req.query;
-        const recipes = name ? findRecipesByName(name) : findAllRecipes();
+        const recipes = name ? await findRecipesByName(name) : await findAllRecipes();
         res.status(200).json(recipes);
     } catch (error) {
-        res.status(500).json({error: error.message});
-    }
-
-    if( name ) {
-        //TODO: conectar a el controller.
-        
-        res.send(`Estoy en la ruta GET /recipes?name=${name}`);
-    } else {
-        //TODO: conectar y crear el controller.
-        res.send('Estoy en la ruta GET /recipes.');
+        res.status(404).json({error: error.message});
     }
 });
 
 recipeRouter.get("/:id", async (req, res) => {
-    // Envia la receta buscada por id.
-    //TODO: conectar a el controller.
-    const {id} = req.params;
-    res.send(`Estoy en la ruta GET /recipes/:id con el id ${id}`);
+    // Envia la receta buscada por id. Se debe incluir un flag en el body del request.
+    // Este flag especifica si se debe buscar en la DDBB o en spoon.
+    try {
+        const {id} = req.params;
+        const {internalFlag} = req.body;
+        if( internalFlag === undefined ) throw Error("Se debe incluir un internalFlag en el cuerpo de la solicitud para indicar si se busca una receta propia o de la pagina web spoonacular. Este puede tomar los valores de true o false.")
+        const recipe = await findRecipeById( id, internalFlag );
+        res.status(200).json(recipe);
+    } catch (error) {
+        res.status(404).json({error: error.message});
+    }
 });
 
 recipeRouter.post('/', async (req,res) => {
     // Crea una nueva receta y la retorna.
-    //TODO: conectar al controller.
-    const {name} = req.body;
+    try {
+        const recipeData = req.body;
+        const newRecipe = await createRecipe( recipeData );
+        res.status(201).json(newRecipe);
+    } catch (error) {
+        res.status(400).json({error: error.message});
+    }
     res.send(`Estoy en la ruta POST /recipes con la receta ${name}`);
 });
 
 module.exports = recipeRouter;
-
-// try {
-//     const diets = await findAllDiets();
-//     res.status(200).json(diets);
-// } catch (error) {
-//     res.status(500).json({error: error.message});
-// }
