@@ -4,10 +4,14 @@ const findAllDiets = require("../controllers/findAllDiets");
 
 const dietRouter = Router();
 
-dietRouter.get("/", (req,res) => {
+dietRouter.get("/", async (req,res) => {
     // Envia la lista de dietas.
-    //TODO: conectar al controller.
-    res.send('Estoy en la ruta GET /diets.')
+    try {
+        const diets = await findAllDiets();
+        res.status(200).json(diets);
+    } catch (error) {
+        res.status(500).json({error: error.message});
+    }
 });
 
 module.exports = dietRouter;
