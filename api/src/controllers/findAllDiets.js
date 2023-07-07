@@ -3,7 +3,7 @@ const { Diet } = require("../db");
 const findAllDiets = async () => {
     // Retorna el arreglo de todas la dietas
     // Si no existen dietas estas se deben precargar.
-    const diets = await Diet.findAll();
+    let diets = await Diet.findAll();
     diets = diets.length == 0 ? createDiets : diets; 
     return diets;
 };
@@ -13,7 +13,7 @@ const createDiets = async () => {
     // Estas dietas se crean en la BBDD.
     //TODO: Hacer el query a spoonacular & encontrar los tipos de dietas unicos.
     //TODO: Crear los tipos de dietas encontrados en spoonacular en la BBDD.
-    const newDiets = null;
+    const newDiets = [];
     return newDiets;
 };
 
