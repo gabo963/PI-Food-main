@@ -8,3 +8,5 @@ const createRecipe = async ( {name, image, description, health_score, step_by_st
     newRecipe.addDiets(diets);
     return newRecipe;
 };
+
+module.exports = createRecipe;
