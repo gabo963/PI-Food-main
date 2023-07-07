@@ -1,0 +1,8 @@
+{
+    "name": "Pasta",
+    "image": "https://images.pexels.com/photos/1437267/pexels-photo-1437267.jpeg?cs=srgb&dl=pexels-engin-akyurt-1437267.jpg&fm=jpg",
+    "description": "Una pasta sabrosa",
+    "health_score": 33,
+    "step_by_step": "1. Cocinar la pasta. 2. Echar la salsa. 3. Disfrutar",
+    "diets": [1,2,3]
+}

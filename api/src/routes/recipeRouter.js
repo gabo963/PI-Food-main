@@ -43,7 +43,6 @@ recipeRouter.post('/', async (req,res) => {
     } catch (error) {
         res.status(400).json({error: error.message});
     }
-    res.send(`Estoy en la ruta POST /recipes con la receta ${name}`);
 });
 
 module.exports = recipeRouter;
