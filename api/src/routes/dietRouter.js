@@ -1,4 +1,4 @@
-const {Router} = require("expres");
+const {Router} = require("express");
 
 const findAllDiets = require("../controllers/findAllDiets");
 

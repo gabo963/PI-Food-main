@@ -1,4 +1,4 @@
-const {Router} = require("expres");
+const {Router} = require("express");
 
 const createRecipe = require("../controllers/createRecipe");
 const findRecipeById = require("../controllers/findRecipeById");
@@ -7,16 +7,23 @@ const findRecipeByName = require("../controllers/findRecipeByName");
 const recipeRouter = Router();
 
 recipeRouter.get("/", (req, res) => {
-    // Envia la lista de recetas
-    //TODO: conectar y crear el controller.
-    res.send('Estoy en la ruta GET /recipes.');
+    
+    const { name } = req.query;
+
+    if( name ) {
+        // Envia la lista de recetas filtrada por nombre.
+        //TODO: conectar a el controller.
+        
+        res.send(`Estoy en la ruta GET /recipes?name=${name}`);
+    } else {
+        // Envia la lista de recetas
+        //TODO: conectar y crear el controller.
+        res.send('Estoy en la ruta GET /recipes.');
+    }
 });
 
-recipeRouter.get("?", (req, res) => {
-    // Envia la lista de recetas filtrada por nombre.
-    //TODO: conectar a el controller.
-    const { name } = req.query;
-    res.send(`Estoy en la ruta GET /recipes?name=${name}`);
+recipeRouter.get("/?", (req, res) => {
+    
 });
 
 recipeRouter.get("/:id", (req, res) => {
