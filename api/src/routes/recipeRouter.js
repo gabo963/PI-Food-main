@@ -28,6 +28,7 @@ recipeRouter.get("/:id", (req, res) => {
 
 recipeRouter.post('/', (req,res) => {
     // Crea una nueva receta y la retorna.
+    //TODO: conectar al controller.
     const {name} = req.body;
     res.send(`Estoy en la ruta POST /recipes con la receta ${name}`);
 });
