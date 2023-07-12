@@ -22,7 +22,6 @@ const createRecipe = async ( {name, image, description, health_score, step_by_st
     
     //DONE: verificar que las dietas ingresadas por Param existan en el modelo Diet.
     const validador = await validadorDieta(diets);
-    console.log(validador);
     if( !validador[0] ) throw Error(`La dieta con id: ${validador[1]} no existen.`);
     
     const newRecipe = await Recipe.create( {name, image, description, health_score, step_by_step} );

@@ -1,5 +1,9 @@
 const { Diet } = require("../db");
 
+const { API_KEY } = process.env;
+const axios = require('axios');
+const URL = "https://api.spoonacular.com/recipes"
+
 const findAllDiets = async () => {
     // Retorna el arreglo de todas la dietas
     // Si no existen dietas estas se deben precargar.
@@ -13,6 +17,8 @@ const createDiets = async () => {
     // Estas dietas se crean en la BBDD.
     //TODO: Hacer el query a spoonacular & encontrar los tipos de dietas unicos.
     //TODO: Crear los tipos de dietas encontrados en spoonacular en la BBDD.
+    const recetas = await axios.get(`${URL}/random?number=1&api_key=${API_KEY}`)
+    console.log(recetas);
     const newDiets = [];
     return newDiets;
 };
