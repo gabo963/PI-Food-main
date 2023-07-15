@@ -32,4 +32,4 @@ const createDiets = async ( newDiets ) => {
     return respuesta;
 };
 
-module.exports = findAllDiets;
+module.exports = {findAllDiets, createDiets};
