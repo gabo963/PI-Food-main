@@ -10,8 +10,7 @@ const findAllDiets = async () => {
     const filter = { attributes: ['ID', 'name'] };
     let diets = await Diet.findAll(filter);
     if( diets.length == 0 ) {
-        await createDiets(null);
-        diets = await Diet.findAll(filter);
+        diets = await createDiets(null);
     }
     return diets;
 };
@@ -32,7 +31,14 @@ const createDiets = async ( newDiets ) => {
     }
     newDiets = [...new Set(newDiets)];
     newDiets = newDiets.map( nombre => { return {name: nombre}; });
-    return await Diet.bulkCreate(newDiets);
+    newDiets = await Diet.bulkCreate(newDiets);
+
+    newDiets = newDiets.map( diet => {
+        const {ID, name} = diet;
+        return {ID, name};
+    } );
+
+    return newDiets;
 };
 
 const findDietByName = async ( name ) => {

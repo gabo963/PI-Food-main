@@ -30,14 +30,19 @@ const findRecipeById = async ( id, internalFlag ) => {
         const receta = await axios.get(`${URL}/${id}/information?apiKey=${API_KEY}`)
         .then((response)=>{
             // Acota los campos
-            const { title, image, summary, healthScore, analyzedInstructions, diets } = response.data;
-            return { title, image, summary, healthScore, analyzedInstructions, diets };
+            const { title, image, summary, healthScore, analyzedInstructions, diets, vegetarian, vegan, glutenFree } = response.data;
+            return { title, image, summary, healthScore, analyzedInstructions, diets, vegetarian, vegan, glutenFree };
         },(reason)=>{
             throw Error(`There was an error when getting the recipe with id: ${id} from spoonacular.`);
         });
 
         // Transforma los campos
-        let { title, image, summary, healthScore, analyzedInstructions, diets } = receta;
+        let { title, image, summary, healthScore, analyzedInstructions, diets, vegetarian, vegan, glutenFree } = receta;
+        
+        if( vegetarian ) diets.push("vegetarian");
+        if( vegan ) diets.push("vegan");
+        if( glutenFree ) diets.push("glutenFree");
+
         let newDiets = [];
         let exiDiets = [];
 
