@@ -13,6 +13,8 @@ const findRecipesByName = async ( name ) => {
     //DONE: Hacer la consulta a Spoonacular.
     //DONE: Verificar que la busqueda no sea caps-sensitive (ni en spoon ni en la BBDD).
 
+    let exactMatch = false;
+
     if( name == '' ) throw Error('El nombre esta vacio.');
 
     let dbRecipes = await Recipe.findAll({
@@ -21,7 +23,13 @@ const findRecipesByName = async ( name ) => {
     });
 
     dbRecipes = dbRecipes.map( recipe => {
-        return {...recipe.dataValues, internalFlag: true};
+        if( recipe.dataValues.name.toUpperCase() == name.toUpperCase() ) {
+            exactMatch = true;
+            return {...recipe.dataValues, internalFlag: true, exactMatch: true};
+        }
+        else {
+            return {...recipe.dataValues, internalFlag: true, exactMatch: false};
+        }
     });
 
     let spoonRecipes = await axios.get(`${URL}/complexSearch?query=${name}&apiKey=${API_KEY}`)
@@ -34,10 +42,15 @@ const findRecipesByName = async ( name ) => {
 
     spoonRecipes = spoonRecipes.map( recipe => {
         const { id, title, image } = recipe;
-        return {ID: id, name: title, image, internalFlag: false};
+        if( title.toUpperCase() == name.toUpperCase() ) {
+            exactMatch = true;
+            return {ID: id, name: title, image, internalFlag: false, exactMatch: true};
+        } else {
+            return {ID: id, name: title, image, internalFlag: false, exactMatch: false};
+        }
     });
 
-    return [...dbRecipes, ...spoonRecipes];
+    return {exactMatch, recipes: [...dbRecipes, ...spoonRecipes]};
 };
 
 module.exports = findRecipesByName;
