@@ -13,7 +13,7 @@ recipeRouter.get("/", async (req, res) => {
     // O Envia la lista completa de recetas de la BBDD.
     try {        
         const { name } = req.query;
-        const recipes = name ? await findRecipesByName(name) : await findAllRecipes();
+        const recipes = name !== null ? await findRecipesByName(name) : await findAllRecipes();
         res.status(200).json(recipes);
     } catch (error) {
         res.status(404).json({error: error.message});
