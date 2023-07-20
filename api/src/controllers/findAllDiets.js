@@ -41,15 +41,4 @@ const createDiets = async ( newDiets ) => {
     return newDiets;
 };
 
-const findDietByName = async ( name ) => {
-    let diet = null;
-    
-    diet = await Diet.findAll({
-        where: {name: name},
-        attributes: ['ID', 'name']
-    })
-
-    return diet;
-};
-
-module.exports = {findAllDiets, createDiets, findDietByName};
+module.exports = {findAllDiets, createDiets };
