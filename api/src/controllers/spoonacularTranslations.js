@@ -23,11 +23,9 @@ const createSteps = async (analyzedInstructions) => {
     analyzedInstructions.forEach(element => {
         // recorre cada elemento
         pasos =+ element.name.length != 0 ? element.name + '\n': '';
-        console.log(element.name)
         element.steps.forEach( step => {
             // recorre cada step del elemento
             pasos += `${step.number}. ${step.step}.\n`
-            console.log(`${step.number}. ${step.step}.\n`);
         } );
     });
     return pasos;
