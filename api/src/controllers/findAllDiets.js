@@ -32,7 +32,18 @@ const createDiets = async ( newDiets ) => {
     }
     newDiets = [...new Set(newDiets)];
     newDiets = newDiets.map( nombre => { return {name: nombre}; });
-    await Diet.bulkCreate(newDiets);
+    return await Diet.bulkCreate(newDiets);
 };
 
-module.exports = {findAllDiets, createDiets};
+const findDietByName = async ( name ) => {
+    let diet = null;
+    
+    diet = await Diet.findAll({
+        where: {name: name},
+        attributes: ['ID', 'name']
+    })
+
+    return diet;
+};
+
+module.exports = {findAllDiets, createDiets, findDietByName};
