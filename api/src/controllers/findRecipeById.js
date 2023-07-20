@@ -26,7 +26,7 @@ const findRecipeById = async ( id, internalFlag ) => {
         // Se busca en spoonacular.
         //DONE: Hacer el query de spoonacular.
         //DONE: Acotar a los campos que se estan buscando
-        //TODO: Transformar los campos.
+        //DONE: Transformar los campos.
         const receta = await axios.get(`${URL}/${id}/information?apiKey=${API_KEY}`)
         .then((response)=>{
             // Acota los campos
@@ -43,33 +43,42 @@ const findRecipeById = async ( id, internalFlag ) => {
         if( vegan ) diets.push("vegan");
         if( glutenFree ) diets.push("glutenFree");
 
-        let newDiets = [];
-        let exiDiets = [];
-
-        for( let i = 0; i < diets.length; i++ ) {
-            const resultado = await findDietByName(diets[i]);
-            if( resultado.length == 0 ) newDiets.push(diets[i]);
-            else exiDiets.push(resultado[0]);
-        }
-
-        diets = await createDiets(newDiets);
-
-        diets = [ ...exiDiets, ...diets ];
-
-        let pasos = "";
-
-        analyzedInstructions.forEach(element => {
-            // recorre cada elemento
-            pasos =+ element.name.length != 0 ? element.name + '\n': '';
-            element.steps.foreach( step => {
-                // recorre cada step del elemento
-                pasos += `${step.number}. ${step.step}.\n`
-            } );
-        });
-
-        recipe = {ID: id, name: title, image, description: summary, health_score: healthScore,step_by_step: pasos, Diets: diets};
+        diets = await validateDiets(diets);
+        const steps = await createSteps( analyzedInstructions ); 
+        
+        recipe = {ID: id, name: title, image, description: summary, health_score: healthScore,step_by_step: steps, Diets: diets};
     }
     return recipe;
+};
+
+const validateDiets = async (diets) => {
+    let newDiets = [];
+    let exiDiets = [];
+
+    for( let i = 0; i < diets.length; i++ ) {
+        const resultado = await findDietByName(diets[i]);
+        if( resultado.length == 0 ) newDiets.push(diets[i]);
+        else exiDiets.push(resultado[0]);
+    }
+    
+    diets = await createDiets(newDiets);
+    
+    return [ ...exiDiets, ...diets ];
+};
+
+const createSteps = async (analyzedInstructions) => {
+    let pasos = '';
+    analyzedInstructions.forEach(element => {
+        // recorre cada elemento
+        pasos =+ element.name.length != 0 ? element.name + '\n': '';
+        console.log(element.name)
+        element.steps.forEach( step => {
+            // recorre cada step del elemento
+            pasos += `${step.number}. ${step.step}.\n`
+            console.log(`${step.number}. ${step.step}.\n`);
+        } );
+    });
+    return pasos;
 };
 
 module.exports = findRecipeById;
