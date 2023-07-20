@@ -19,7 +19,7 @@ const validateDiets = async (diets) => {
 
 const createSteps = async (analyzedInstructions) => {
     // Recorre los pasos de spoonacular y los convierte en nuestro formato legible.
-    let pasos = '';
+    let pasos = analyzedInstructions.length == 0 ? 'No hay Pasos': '';
     analyzedInstructions.forEach(element => {
         // recorre cada elemento
         pasos =+ element.name.length != 0 ? element.name + '\n': '';
