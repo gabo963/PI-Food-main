@@ -52,6 +52,7 @@ const findRecipeById = async ( id, internalFlag ) => {
 };
 
 const validateDiets = async (diets) => {
+    // Valida si las dietas ya existen, si ya existen les agrega el id, si no las crea y las responde con el id.
     let newDiets = [];
     let exiDiets = [];
 
@@ -67,6 +68,7 @@ const validateDiets = async (diets) => {
 };
 
 const createSteps = async (analyzedInstructions) => {
+    // Recorre los pasos de spoonacular y los convierte en nuestro formato legible.
     let pasos = '';
     analyzedInstructions.forEach(element => {
         // recorre cada elemento
