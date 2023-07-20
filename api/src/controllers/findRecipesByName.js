@@ -50,7 +50,11 @@ const findRecipesByName = async ( name ) => {
         }
     });
 
-    return {exactMatch, recipes: [...dbRecipes, ...spoonRecipes]};
+    const recipeArray = [...dbRecipes, ...spoonRecipes];
+
+    if( recipeArray.length === 0) throw Error(`No se encontro ninguna receta con el nombre: ${name}`);
+
+    return {exactMatch, recipes: recipeArray};
 };
 
 module.exports = findRecipesByName;
