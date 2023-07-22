@@ -1,9 +1,16 @@
 import RecipeCard from "./RecipeCard";
-import { useSelector} from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { getRecipes } from "../redux/actions";
 
 const RecipeCards = (props) => {
 
     const recipes = useSelector( (state) => state.recipes );
+    const dispatch = useDispatch();
+
+    useEffect( () => {
+        dispatch( getRecipes() );
+    }, [] );
 
     return (
         <div>

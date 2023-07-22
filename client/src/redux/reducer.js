@@ -1,7 +1,7 @@
 import { GET_RECIPES } from "./actions";
 
 const initialState = {
-    recipes: [{id: 1, name: 'Helado de Vainilla'}],
+    recipes: [],
 };
 
 const rootReducer = (state=initialState, action) => {
