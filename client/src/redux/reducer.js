@@ -1,4 +1,5 @@
 import { GET_RECIPES, GET_RECIPE, GET_DIETS, POST_RECIPE } from "./actions";
+// import { DELETE_RECIPE, PUT_RECIPE} from "./actions";
 
 const initialState = {
     recipes: [],
@@ -16,6 +17,13 @@ const rootReducer = (state=initialState, action) => {
             return {...state, diets: action.payload};
         case POST_RECIPE:
             return {...state, recipes: [...state.recipes, action.payload] };
+        // case DELETE_RECIPE:
+        //     return {...state, recipes: state.recipes.filter(recipe => recipe.id !== action.payload.id)};
+        // case PUT_RECIPE: 
+        //     return {...state, recipes: state.recipes.map( recipe => {
+        //         if ( recipe.id === payload.recipe.id ) return payload.recipe;
+        //         else return recipe;
+        //     } )};
         default: 
             return {...state};
     }
