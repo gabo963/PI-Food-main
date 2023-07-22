@@ -20,9 +20,15 @@ const Home = () => {
             <h3>Recipes:</h3>
 
             <div>
+                <table>
                 {recipes.map(
-                    recipe => { return <RecipeCard key={recipe.ID} id={recipe.ID} name={recipe.name} image={recipe.image} /> }
+                    recipe => { return <RecipeCard 
+                        key={recipe.ID} 
+                        id={recipe.ID} 
+                        name={recipe.name} 
+                        image={recipe.image} /> }
                 )}
+                </table>
             </div>
 
         </div>

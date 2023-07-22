@@ -3,7 +3,7 @@ const RecipeCard = ({id, name, image}) => {
         <div className="card">
             <p>Name: {name}</p>
             <p>ID: {id}</p>
-            <img src={image} alt={name} />
+            <img src={image} alt={name} width={200}/>
             <hr />
         </div>
     );
