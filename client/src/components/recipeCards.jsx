@@ -1,4 +1,4 @@
-import RecipeCard from "./RecipeCard";
+import RecipeCard from "./RecipeCard/RecipeCard";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRecipes } from "../redux/actions";
