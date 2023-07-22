@@ -1,15 +1,20 @@
 import './App.css';
 import {Routes, Route} from "react-router-dom";
-import RecipeCards from './components/RecipeCards';
+import Nav from './components/Nav/Nav';
+import Landing from './components/Landing/Landing';
+import Home from './components/Home/Home';
+import RecipeDetail from './components/RecipeDetail/RecipeDetail';
+import RecipeCreate from './components/RecipeCreate/RecipeCreate';
 
 function App() {
   return (
     <div className="App">
       <Nav />
       <Routes>
-        <Route path="/" element={<Home />}/>
-        <Route path="/celulares/:id" element={<CelularDetail />}/>
-        <Route path="/celulares/create" element={<CreateCelular />}/>
+        <Route path="/" element={<Landing />}/>
+        <Route path="/recipes" element={<Home />}/>
+        <Route path="/recipes/:id" element={<RecipeDetail />}/>
+        <Route path="/recipes/create" element={<RecipeCreate />}/>
       </Routes>
     </div>
   );
