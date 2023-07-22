@@ -1,4 +1,4 @@
-const recipeCard = ({key, name}) => {
+const RecipeCard = ({key, name}) => {
     return(
         <div>
             <p>Name: {name}</p>
@@ -7,4 +7,4 @@ const recipeCard = ({key, name}) => {
     );
 };
 
-export default recipeCard;
+export default RecipeCard;

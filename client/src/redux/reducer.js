@@ -1,5 +1,5 @@
 const initialState = {
-    recipes: [],
+    recipes: [{id: 1, name: 'Helado de Vainilla'}],
 };
 
 const rootReducer = (state=initialState, action) => {

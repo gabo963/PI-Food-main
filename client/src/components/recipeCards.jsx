@@ -1,14 +1,17 @@
-import { useDispatch, useSelector} from "react-redux";
-import recipeCard from "./recipeCard,jsx";
+import RecipeCard from "./RecipeCard";
+import { useSelector} from "react-redux";
 
-const recipeCards = (props) => {
+const RecipeCards = (props) => {
+
+    const recipes = useSelector( (state) => state.recipes );
+
     return (
         <div>
             {recipes.map(
-                recipe => { return <recipeCard key={recipe.id} name={recipe.name} /> }
+                recipe => { return <RecipeCard key={recipe.id} name={recipe.name} /> }
             )}
         </div>
     );
 };
 
-export default recipeCards;
+export default RecipeCards;
