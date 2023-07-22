@@ -11,7 +11,8 @@ ReactDOM.render(
     {/* Browser Router va adentro */}
     <App />
     {/* Browser Router va adentro */}
-  </Provider>
+  </Provider>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
