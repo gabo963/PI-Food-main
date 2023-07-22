@@ -11,5 +11,6 @@ export const getRecipes = () => {
     return function(dispatch){
         axios("http://localhost:3001/recipes")
         .then(data=>dispatch( {type: GET_RECIPES, payload: data.data} ))
+        .catch( reason => dispatch({type: GET_RECIPES, payload: []}) )
     };
 };

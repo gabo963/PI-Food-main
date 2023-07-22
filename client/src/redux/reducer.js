@@ -16,7 +16,7 @@ const rootReducer = (state=initialState, action) => {
         case GET_DIETS:
             return {...state, diets: action.payload};
         case POST_RECIPE:
-            return {...state, recipes: [...state.recipes, action.payload] };
+            return {...state, recipe: action.payload};
         // case DELETE_RECIPE:
         //     return {...state, recipes: state.recipes.filter(recipe => recipe.id !== action.payload.id)};
         // case PUT_RECIPE: 

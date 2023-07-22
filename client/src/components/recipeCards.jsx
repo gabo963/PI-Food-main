@@ -15,7 +15,7 @@ const RecipeCards = (props) => {
     return (
         <div>
             {recipes.map(
-                recipe => { return <RecipeCard key={recipe.id} id={recipe.id} name={recipe.name} /> }
+                recipe => { return <RecipeCard key={recipe.ID} id={recipe.ID} name={recipe.name} image={recipe.image} /> }
             )}
         </div>
     );
