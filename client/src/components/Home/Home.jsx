@@ -15,12 +15,12 @@ const Home = () => {
     }, [] );
 
     return(
-        <div className='container'>
+        <div>
             <h3>Recipes:</h3>
             {/* Falta la search bar, el paginado, y los filtros. */}
 
             <div className='cards'>
-                {recipes.map(
+                {recipes && recipes.map(
                     recipe => { return <RecipeCard 
                         key={`${recipe.ID}-${recipe.internalFlag}`} 
                         id={`${recipe.ID}-${recipe.internalFlag}`} 

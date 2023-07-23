@@ -13,14 +13,20 @@ export const getRecipes = () => {
     return function(dispatch){
         axios.get(`${URL}/recipes`)
         .then(data=>dispatch( {type: GET_RECIPES, payload: data.data} ))
-        .catch( reason => dispatch({type: GET_RECIPES, payload: []}) )
+        .catch( reason => {
+            console.log(reason);
+            dispatch({type: GET_RECIPES, payload: []})
+        });
     };
 };
 
-export const getRecipe = (id, flag) => {
+export const getRecipe = (id) => {
     return function(dispatch){
-        axios.get(`${URL}/recipes/${id}`, {internalFlag: flag})
+        axios.get(`${URL}/recipes/${id}`)
         .then(data=>dispatch( {type: GET_RECIPE, payload: data.data} ))
-        .catch( reason => dispatch({type: GET_RECIPE, payload: []}) )
+        .catch( reason => {
+            console.log(reason);
+            dispatch({type: GET_RECIPE, payload: []});
+        });
     };
 };

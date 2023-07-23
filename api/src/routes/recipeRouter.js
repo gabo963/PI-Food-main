@@ -24,9 +24,11 @@ recipeRouter.get("/:id", async (req, res) => {
     // Envia la receta buscada por id. Se debe incluir un flag en el body del request.
     // Este flag especifica si se debe buscar en la DDBB o en spoon.
     try {
-        const {id} = req.params;
-        const {internalFlag} = req.body;
-        if( internalFlag === undefined ) throw Error("Se debe incluir un internalFlag en el cuerpo de la solicitud para indicar si se busca una receta propia o de la pagina web spoonacular. Este puede tomar los valores de true o false.")
+        let {id} = req.params;
+        let internalFlag = id.split("-")[1];
+        id = id.split("-")[0];
+        if( internalFlag === undefined || !( internalFlag === "true" || internalFlag === "false" ) ) throw Error("Se debe incluir un internalFlag en la id de la solicitud para indicar si se busca una receta propia o de la pagina web spoonacular. Este puede tomar los valores de true o false y la ID se debe ver recipes/{NUM}-{true/false}.")
+        internalFlag = internalFlag === "true" ? true : false;
         const recipe = await findRecipeById( id, internalFlag );
         res.status(200).json(recipe);
     } catch (error) {
