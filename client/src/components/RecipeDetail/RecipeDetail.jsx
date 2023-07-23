@@ -11,6 +11,7 @@ const RecipeDetail = () => {
     const { id } = useParams();
 
     const recipe = useSelector( (state) => state.recipe );
+    const errors = useSelector( (state) => state.detailErrors );
     const dispatch = useDispatch();
 
     useEffect( ()=>{
@@ -19,6 +20,7 @@ const RecipeDetail = () => {
 
     return(
         <div>
+            {errors !== "" ? <p className="error">{errors}</p> : ""}
             {recipe && (
                 <div>
                     <h1>{recipe.name}</h1>

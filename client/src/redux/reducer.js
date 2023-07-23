@@ -1,4 +1,5 @@
 import { GET_RECIPES, GET_RECIPE, GET_DIETS, POST_RECIPE } from "./actions";
+import { GET_RECIPES_ERROR, GET_RECIPE_ERROR, GET_DIETS_ERROR, POST_RECIPE_ERROR } from "./actions";
 // import { DELETE_RECIPE, PUT_RECIPE} from "./actions";
 
 const initialState = {
@@ -6,18 +7,24 @@ const initialState = {
     diets: [],
     recipe: null,
     match: false,
+    homeErrors: "",
+    detailErrors: "",
 };
 
 const rootReducer = (state=initialState, action) => {
     switch( action.type ) {
         case GET_RECIPES:
-            return {...state, recipes: action.payload.recipes, match: action.payload.exactMatch };
+            return {...state, recipes: action.payload.recipes, match: action.payload.exactMatch, homeErrors: "" };
         case GET_RECIPE:
-            return {...state, recipe: action.payload };
+            return {...state, recipe: action.payload, detailErrors: "" };
         case GET_DIETS:
             return {...state, diets: action.payload};
         case POST_RECIPE:
             return {...state, recipe: action.payload};
+        case GET_RECIPES_ERROR:
+            return {...state, homeErrors: action.payload.error};
+        case GET_RECIPE_ERROR:
+            return {...state, detailErrors: action.payload.error};
         // case DELETE_RECIPE:
         //     return {...state, recipes: state.recipes.filter(recipe => recipe.id !== action.payload.id)};
         // case PUT_RECIPE: 

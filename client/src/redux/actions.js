@@ -4,6 +4,11 @@ export const GET_RECIPE = "GET_RECIPE"; // DONE: Enviar el internal flag
 export const GET_DIETS = "GET_DIETS"; // DONE: recibir las dietas.
 export const POST_RECIPE = "POST_RECIPE"; // DONE: Postear la receta.
 
+export const GET_RECIPES_ERROR = "GET_RECIPES_ERROR";
+export const POST_RECIPE_ERROR = "POST_RECIPE_ERROR";
+export const GET_DIETS_ERROR = "GET_DIETS_ERROR";
+export const GET_RECIPE_ERROR = "GET_RECIPE_ERROR";
+
 // export const DELETE_RECIPE = "DELETE_RECIPE"; // TODO: Agregar al api.
 // export const PUT_RECIPE = "PUT_RECIPE"; // TODO: Agregar al api.
 
@@ -14,7 +19,7 @@ export const getRecipes = (name) => {
         axios.get(`${URL}/recipes`)
         .then(data=>dispatch( {type: GET_RECIPES, payload: data.data} ))
         .catch( reason => {
-            dispatch({type: GET_RECIPES, payload: reason})
+            dispatch({type: GET_RECIPES_ERROR, payload: reason.response.data})
         });
     };
 };
@@ -24,7 +29,7 @@ export const getRecipe = (id) => {
         axios.get(`${URL}/recipes/${id}`)
         .then(data=>dispatch( {type: GET_RECIPE, payload: data.data} ))
         .catch( reason => {
-            dispatch({type: GET_RECIPE, payload: reason});
+            dispatch({type: GET_RECIPE_ERROR, payload: reason.response.data})
         });
     };
 };
@@ -34,7 +39,7 @@ export const getDiets = () => {
         axios.get(`${URL}/diets`)
         .then(data=>dispatch( {type: GET_DIETS, payload: data.data} ))
         .catch( reason => {
-            dispatch({type: GET_DIETS, payload: reason})
+            dispatch({type: GET_DIETS_ERROR, payload: reason.response.data})
         });
     };
 };
@@ -44,7 +49,7 @@ export const postRecipe = ( recipe ) => {
         axios.post(`${URL}/recipes`,{recipe})
         .then(data=>dispatch( {type: POST_RECIPE, payload: data.data} ))
         .catch( reason => {
-            dispatch({type: POST_RECIPE, payload: reason})
+            dispatch({type: POST_RECIPE_ERROR, payload: reason.response.data})
         });
     };
 };
