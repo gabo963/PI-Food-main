@@ -11,7 +11,7 @@ const RecipeDetail = () => {
     const { id } = useParams();
 
     const recipe = useSelector( (state) => state.recipe );
-    const errors = useSelector( (state) => state.detailErrors );
+    const errors = useSelector( (state) => state.errors.getRecipeErrors );
     const dispatch = useDispatch();
 
     useEffect( ()=>{

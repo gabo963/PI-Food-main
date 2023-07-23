@@ -7,24 +7,28 @@ const initialState = {
     diets: [],
     recipe: null,
     match: false,
-    homeErrors: "",
-    detailErrors: "",
+    errors: {
+        getRecipesErrors: '',
+        getRecipeErrors: '',
+        postRecipeErrors: '',
+        getDietsErrors: ''
+    },
 };
 
 const rootReducer = (state=initialState, action) => {
     switch( action.type ) {
         case GET_RECIPES:
-            return {...state, recipes: action.payload.recipes, match: action.payload.exactMatch, homeErrors: "" };
+            return {...state, recipes: action.payload.recipes, match: action.payload.exactMatch, errors: {...state.errors, getRecipesErrors: ''} };
         case GET_RECIPE:
-            return {...state, recipe: action.payload, detailErrors: "" };
+            return {...state, recipe: action.payload, errors: {...state.errors, getRecipeErrors: ''} };
         case GET_DIETS:
             return {...state, diets: action.payload};
         case POST_RECIPE:
             return {...state, recipe: action.payload};
         case GET_RECIPES_ERROR:
-            return {...state, homeErrors: action.payload.error};
+            return {...state, errors: {...state.errors, getRecipesErrors: action.payload.error}};
         case GET_RECIPE_ERROR:
-            return {...state, detailErrors: action.payload.error};
+            return {...state, errors: {...state.errors, getRecipeErrors: action.payload.error}};
         // case DELETE_RECIPE:
         //     return {...state, recipes: state.recipes.filter(recipe => recipe.id !== action.payload.id)};
         // case PUT_RECIPE: 
