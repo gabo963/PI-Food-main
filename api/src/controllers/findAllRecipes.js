@@ -5,6 +5,8 @@ const { API_KEY, RECETAS_PARA_DIETAS } = process.env;
 const axios = require('axios');
 const URL = "https://api.spoonacular.com/recipes"
 
+const { validateDiets } = require("./spoonacularTranslations");
+
 const findAllRecipes = async ( ) => {
     // Consulta todas las recetas en la base de datos.
     // DONE: Acotar a los campos que se estan buscando
@@ -30,10 +32,17 @@ const findAllRecipes = async ( ) => {
         throw Error(`There was an error when extracting the recipes from spoonacular: "${reason}".`);
     });
 
-    spoonRecipes = spoonRecipes.map( recipe => {
-        const { id, title, image } = recipe;
-        return {ID: id, name: title, image, internalFlag: false};
-    });
+    spoonRecipes = await Promise.all(spoonRecipes.map( async recipe => {
+        let { id, title, image, healthScore, diets, vegetarian, vegan, glutenFree } = recipe;
+
+        if( vegetarian ) diets.push("vegetarian");
+        if( vegan ) diets.push("vegan");
+        if( glutenFree ) diets.push("glutenFree");
+
+        diets = await validateDiets(diets);
+
+        return {ID: id, name: title, image, health_score: healthScore, Diets: diets, internalFlag: false};
+    }));
 
     return {recipes: [...dbRecipes, ...spoonRecipes]};
 };
