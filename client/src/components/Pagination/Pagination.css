@@ -1,5 +1,11 @@
+* {
+    box-sizing: border-box;
+}
+
 .numero {
     background-color: chocolate;
+    float: left;
+    padding: 50px;
 }
 
 .contenedor {

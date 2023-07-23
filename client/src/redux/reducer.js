@@ -13,6 +13,8 @@ const initialState = {
         postRecipeErrors: '',
         getDietsErrors: ''
     },
+    pgIndex: 1,
+    
 };
 
 const rootReducer = (state=initialState, action) => {
