@@ -7,10 +7,20 @@ export const POST_RECIPE = "POST_RECIPE"; // TODO: Postear la receta.
 // export const DELETE_RECIPE = "DELETE_RECIPE"; // TODO: Agregar al api.
 // export const PUT_RECIPE = "PUT_RECIPE"; // TODO: Agregar al api.
 
+const URL = "http://localhost:3001";
+
 export const getRecipes = () => {
     return function(dispatch){
-        axios("http://localhost:3001/recipes")
+        axios.get(`${URL}/recipes`)
         .then(data=>dispatch( {type: GET_RECIPES, payload: data.data} ))
         .catch( reason => dispatch({type: GET_RECIPES, payload: []}) )
+    };
+};
+
+export const getRecipe = (id, flag) => {
+    return function(dispatch){
+        axios.get(`${URL}/recipes/${id}`, {internalFlag: flag})
+        .then(data=>dispatch( {type: GET_RECIPE, payload: data.data} ))
+        .catch( reason => dispatch({type: GET_RECIPE, payload: []}) )
     };
 };
