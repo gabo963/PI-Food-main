@@ -18,7 +18,7 @@ const Home = () => {
     return(
         <div>
             <h3>Recipes:</h3>
-            <div>
+            <div className='cards'>
                 {recipes.map(
                     recipe => { return <RecipeCard 
                         key={recipe.ID} 
