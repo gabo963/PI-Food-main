@@ -27,7 +27,7 @@ const RecipeDetail = () => {
                     <img src={recipe.image} alt={recipe.name} />
                     <p><b>ID:</b> {id} <b>Health Score:</b> {recipe.health_score}</p>
                     <h3>Diet Types :</h3>
-                    <p>{recipe.Diets.map(diet => { return ` ${diet.name},` }).join('').slice(0,-1) + '.'}</p>
+                    <p>{recipe.Diets && recipe.Diets.map(diet => { return ` ${diet.name},` }).join('').slice(0,-1) + '.'}</p>
                     <h3>Description:</h3>
                     <div className="in-text">{ ReactHtmlParser(recipe.description)}</div>
                     <h3>Step By Step:</h3>

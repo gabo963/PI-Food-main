@@ -18,7 +18,7 @@ const validate = (form, errors ) => {
     else {
         if( Number(form.health_score) < 0 || Number(form.health_score) > 100  ) errors = {...errors, health_score: "The Health Score should be less than 100, and more than 0."};
         else {
-            if( form.health_score == '' ) errors = { ...errors, health_score: 'The Health Score is empty' }
+            if( form.health_score === '' ) errors = { ...errors, health_score: 'The Health Score is empty' }
             else errors = {...errors, health_score: ''};
         };
     }
@@ -167,7 +167,7 @@ const RecipeCreate = () => {
                     onChange={handleChange}
                 />
                 {errors.image && <p className="error">{errors.image}</p> }
-                <p>{form.image != "" ? <img src={form.image} alt='ImageTest'/> : ''}</p>
+                <p>{form.image !== "" ? <img src={form.image} alt='ImageTest'/> : ''}</p>
             </div>
             <div className="container">
                 <div className="container">
