@@ -22,11 +22,11 @@ const Home = () => {
             <div className='cards'>
                 {recipes.map(
                     recipe => { return <RecipeCard 
-                        key={recipe.ID} 
-                        id={recipe.ID} 
+                        key={`${recipe.ID}-${recipe.internalFlag}`} 
+                        id={`${recipe.ID}-${recipe.internalFlag}`} 
                         name={recipe.name} 
                         image={recipe.image}
-                        tiposDeDieta={recipe.diets}
+                        tiposDeDieta={recipe.Diets}
                         internalFlag={recipe.internalFlag}    
                     /> }
                 )}
