@@ -5,12 +5,13 @@ const initialState = {
     recipes: [],
     diets: [],
     recipe: null,
+    match: false
 };
 
 const rootReducer = (state=initialState, action) => {
     switch( action.type ) {
         case GET_RECIPES:
-            return {...state, recipes: action.payload };
+            return {...state, recipes: action.payload.recipes, match: action.payload.exactMatch };
         case GET_RECIPE:
             return {...state, recipe: action.payload };
         case GET_DIETS:
