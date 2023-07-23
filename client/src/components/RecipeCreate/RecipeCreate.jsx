@@ -6,6 +6,9 @@ import { useEffect } from "react";
 import { getDiets, postRecipe } from "../../redux/actions";
 
 const validate = (form, setErrors, errors ) => {
+    console.log(form.name.length)
+    if( form.name.length > 255 ) setErrors( {...errors, name: "The recipe's name is too long (max 255 chars)"} );
+    else setErrors( {...errors, name: null} )
 	// Name no supere la cantidad de caracteres predeterminada.
     // Image sea un link
     // Health score sea un int
@@ -34,12 +37,12 @@ const RecipeCreate = () => {
 	});
 
 	const [errors, setErrors] = useState({
-		name: "",
-		description: "",
-        health_score: "",
-        step_by_step: "",
-        image: "",
-        Diets: "",
+		name: null,
+		description: null,
+        health_score: null,
+        step_by_step: null,
+        image: null,
+        Diets: null,
 	});
 
 	const handleChange = (event) => {
@@ -78,6 +81,7 @@ const RecipeCreate = () => {
                     value={form.name}
                     onChange={handleChange}
                 />
+                {errors.name && <p className="error">{errors.name}</p> }
             </div>
             <div className="container">
                 <div className="container">
@@ -89,6 +93,7 @@ const RecipeCreate = () => {
                     value={form.description}
                     onChange={handleChange}
                 />
+                {errors.description && <p className="error">{errors.description}</p> }
 			</div>
             <div className="container">
                 <label htmlFor="health_score">Health Score:</label>
@@ -98,6 +103,7 @@ const RecipeCreate = () => {
                     value={form.health_score}
                     onChange={handleChange}
                 />
+                {errors.health_score && <p className="error">{errors.health_score}</p> }
             </div>
             <div className="container">
                 <div className="container">
@@ -109,6 +115,7 @@ const RecipeCreate = () => {
                     value={form.step_by_step}
                     onChange={handleChange}
                 />
+                {errors.step_by_step && <p className="error">{errors.step_by_step}</p> }
             </div>
             <div className="container">
                 <label htmlFor="image">Image URL:</label>
@@ -118,6 +125,7 @@ const RecipeCreate = () => {
                     value={form.image}
                     onChange={handleChange}
                 />
+                {errors.image && <p className="error">{errors.image}</p> }
                 <p>{form.image != "" ? <img src={form.image} alt='ImageTest'/> : ''}</p>
             </div>
             <div className="container">
@@ -132,6 +140,7 @@ const RecipeCreate = () => {
                 >
                     {diets.map( diet => { return(<option key={diet.ID} value={diet.ID}>{diet.name}</option>) } )}
                 </select>
+                {errors.Diets && <p className="error">{errors.Diets}</p> }
             </div>
 			<button>Create Recipe</button>
 		</form>

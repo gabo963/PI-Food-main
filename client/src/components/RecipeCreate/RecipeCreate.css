@@ -34,3 +34,7 @@ img {
     height: 100px;
     width: auto;
 }
+
+.error {
+    color: #ff1212;
+}
