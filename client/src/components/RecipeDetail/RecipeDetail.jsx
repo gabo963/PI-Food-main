@@ -21,12 +21,14 @@ const RecipeDetail = () => {
         <div>
             {recipe && (
                 <div>
-                    <p><b>Name:</b> {recipe.name}</p>
+                    <h1>{recipe.name}</h1>
                     <img src={recipe.image} alt={recipe.name} />
                     <p><b>ID:</b> {id} <b>Health Score:</b> {recipe.health_score}</p>
-                    <p><b>Description:</b></p>
+                    <h3>Diet Types :</h3>
+                    <p>{recipe.Diets.map(diet => { return ` ${diet.name},` }).join('').slice(0,-1) + '.'}</p>
+                    <h3>Description:</h3>
                     <div className="in-text">{ ReactHtmlParser(recipe.description)}</div>
-                    <p><b>Step By Step:</b></p>
+                    <h3>Step By Step:</h3>
                     <div className="in-text">{ ReactHtmlParser(recipe.step_by_step)}</div>
                 </div>
             )}
