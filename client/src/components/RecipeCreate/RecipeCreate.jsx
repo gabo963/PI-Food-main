@@ -47,6 +47,7 @@ const validate = (form, errors ) => {
 const RecipeCreate = () => {
 
     const diets = useSelector( (state) => state.diets );
+    const errorsApi = useSelector( (state) => state.errors.postRecipeErrors );
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
@@ -97,7 +98,10 @@ const RecipeCreate = () => {
             recipe = {...recipe, health_score: parseInt(recipe.health_score)};
             const {name, description, health_score, step_by_step, image, diets} = recipe;  
             dispatch( postRecipe( {name, description, health_score, step_by_step, image, diets} ) );
-            navigate('/recipes');
+            if( errorsApi !== "" ) {
+                navigate('/recipes');
+            }
+            console.log(errorsApi);
         }
 	};
 
@@ -175,7 +179,10 @@ const RecipeCreate = () => {
                 </select>
                 {errors.diets && <p className="error">{errors.diets}</p> }
             </div>
-			<button>Create Recipe</button>
+            <div className="container">
+                {errorsApi !== "" ? <p className="error">{errorsApi}</p> : ""}
+                <button>Create Recipe</button>
+            </div>
 		</form>
 	);
 };

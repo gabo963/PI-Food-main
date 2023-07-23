@@ -22,13 +22,17 @@ const rootReducer = (state=initialState, action) => {
         case GET_RECIPE:
             return {...state, recipe: action.payload, errors: {...state.errors, getRecipeErrors: ''} };
         case GET_DIETS:
-            return {...state, diets: action.payload};
+            return {...state, diets: action.payload, errors: {...state.errors, getDietsErrors: ''}};
         case POST_RECIPE:
-            return {...state, recipe: action.payload};
+            return {...state, recipe: action.payload, errors: {...state.errors, postRecipeErrors: ''}};
         case GET_RECIPES_ERROR:
             return {...state, errors: {...state.errors, getRecipesErrors: action.payload.error}};
         case GET_RECIPE_ERROR:
             return {...state, errors: {...state.errors, getRecipeErrors: action.payload.error}};
+        case GET_DIETS_ERROR:
+            return {...state, errors: {...state.errors, getDietsErrors: action.payload.error}};
+        case POST_RECIPE_ERROR:
+            return {...state, errors: {...state.errors, postRecipeErrors: action.payload.error}};
         // case DELETE_RECIPE:
         //     return {...state, recipes: state.recipes.filter(recipe => recipe.id !== action.payload.id)};
         // case PUT_RECIPE: 
