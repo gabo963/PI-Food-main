@@ -30,3 +30,25 @@ export const getRecipe = (id) => {
         });
     };
 };
+
+export const getDiets = () => {
+    return function(dispatch){
+        axios.get(`${URL}/diets`)
+        .then(data=>dispatch( {type: GET_DIETS, payload: data.data} ))
+        .catch( reason => {
+            console.log(reason);
+            dispatch({type: GET_DIETS, payload: []})
+        });
+    };
+};
+
+export const postRecipe = ( recipe ) => {
+    return function(dispatch){
+        axios.post(`${URL}/diets`,{recipe})
+        .then(data=>dispatch( {type: POST_RECIPE, payload: data.data} ))
+        .catch( reason => {
+            console.log(reason);
+            dispatch({type: POST_RECIPE, payload: []})
+        });
+    };
+};

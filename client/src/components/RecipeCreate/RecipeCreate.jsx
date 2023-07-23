@@ -9,6 +9,7 @@ const validate = (form, setErrors, errors ) => {
 	// Name no supere la cantidad de caracteres predeterminada.
     // Image sea un link
     // Health score sea un int
+    // Que health score no est debajo de 0 ni encima de 100
     // Description no supere cantidad default.
     // step by step no supere cantidad defauilt.
 };
@@ -55,7 +56,7 @@ const RecipeCreate = () => {
 
 	return (
 		<form onSubmit={submitHandler}>
-            <h3>Create a New Recipe</h3>
+            <h2>Create a New Recipe</h2>
 			<div className="container">
                 <label htmlFor="name">Name:</label>
                 <input
@@ -66,8 +67,10 @@ const RecipeCreate = () => {
                 />
             </div>
             <div className="container">
-                <label htmlFor="description">Description:</label>
-                <input className="bigText"
+                <div className="container">
+                    <label htmlFor="description">Description:</label>
+                </div>
+                <textarea className="bigText"
                     type="text"
                     name="description"
                     value={form.description}
@@ -84,8 +87,10 @@ const RecipeCreate = () => {
                 />
             </div>
             <div className="container">
-                <label htmlFor="step_by_step">Step by Step:</label>
-                <input className="bigText"
+                <div className="container">
+                    <label htmlFor="step_by_step">Step by Step:</label>
+                </div>
+                <textarea className="bigText"
                     type="text"
                     name="step_by_step"
                     value={form.step_by_step}
@@ -103,7 +108,9 @@ const RecipeCreate = () => {
                 <p>{form.image != "" ? <img src={form.image} alt='ImageTest'/> : ''}</p>
             </div>
             <div className="container">
-                <label htmlFor="name">Diet Types:</label>
+                <div className="container">
+                    <label htmlFor="name">Diet Types:</label>
+                </div>
                 <select 
                     multiple={true}
                     name="Diets"
@@ -112,7 +119,7 @@ const RecipeCreate = () => {
                     {diets.map( diet => { return(<option value={diet.ID}>{diet.name}</option>) } )}
                 </select>
             </div>
-			<button>Login</button>
+			<button>Create Recipe</button>
 		</form>
 	);
 };

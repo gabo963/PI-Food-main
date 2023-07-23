@@ -11,10 +11,23 @@ label {
 
 input {
     width: 400px;
+    overflow-wrap: break-word;
+    overflow: hidden;
+    word-break: break-all;
+}
+
+input:focus {
+    border: 3px solid #555;
 }
 
 .bigText {
-    height: 100px;
+    width: 400px;
+    height: 150px;
+    padding: 12px 20px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    resize: none;
 }
 
 img {
