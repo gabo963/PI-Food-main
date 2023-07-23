@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getDiets, postRecipe } from "../../redux/actions";
+import { useNavigate } from "react-router-dom";
 
 const validate = (form, errors ) => {
 
@@ -46,6 +47,7 @@ const validate = (form, errors ) => {
 const RecipeCreate = () => {
 
     const diets = useSelector( (state) => state.diets );
+    const navigate = useNavigate();
 
     const dispatch = useDispatch();
 
@@ -59,7 +61,7 @@ const RecipeCreate = () => {
         health_score: 0,
         step_by_step: "",
         image: "",
-        Diets: [],
+        diets: [],
 	});
 
 	const [errors, setErrors] = useState({
@@ -68,7 +70,7 @@ const RecipeCreate = () => {
         health_score: '',
         step_by_step: '',
         image: '',
-        Diets: '',
+        diets: '',
 	});
 
 	const handleChange = (event) => {
@@ -91,8 +93,11 @@ const RecipeCreate = () => {
         let countErrors = 0;
         Object.values(errors).forEach( (v) => {countErrors += v.length;} );
         if( !countErrors ) {
-            console.log('entra');
-            dispatch( postRecipe( form ) );
+            let recipe = {...form};
+            recipe = {...recipe, health_score: parseInt(recipe.health_score)};
+            const {name, description, health_score, step_by_step, image, diets} = recipe;  
+            dispatch( postRecipe( {name, description, health_score, step_by_step, image, diets} ) );
+            navigate('/recipes');
         }
 	};
 
@@ -162,13 +167,13 @@ const RecipeCreate = () => {
                 </div>
                 <select 
                     multiple={true}
-                    name="Diets"
-                    value={form.Diets}
+                    name="diets"
+                    value={form.diets}
                     onChange={handleChangeSelector}
                 >
-                    {diets.map( diet => { return(<option key={diet.ID} value={diet.ID}>{diet.name}</option>) } )}
+                    {diets && diets.map( diet => { return(<option key={diet.ID} value={diet.ID}>{diet.name}</option>) } )}
                 </select>
-                {errors.Diets && <p className="error">{errors.Diets}</p> }
+                {errors.diets && <p className="error">{errors.diets}</p> }
             </div>
 			<button>Create Recipe</button>
 		</form>

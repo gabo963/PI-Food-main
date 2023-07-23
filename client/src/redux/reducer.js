@@ -5,7 +5,7 @@ const initialState = {
     recipes: [],
     diets: [],
     recipe: null,
-    match: false
+    match: false,
 };
 
 const rootReducer = (state=initialState, action) => {
@@ -29,5 +29,7 @@ const rootReducer = (state=initialState, action) => {
             return {...state};
     }
 }; 
+
+// TODO: https://stackoverflow.com/questions/58266418/correct-way-of-error-handling-in-react-redux
 
 export default rootReducer;
