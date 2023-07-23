@@ -19,6 +19,10 @@ const Home = () => {
             <h3>Recipes:</h3>
             {/* Falta la search bar, el paginado, y los filtros. */}
 
+            <div className='container'>
+                <input type="text" name="search" placeholder='Search...' className='icon'/>
+            </div>
+
             <div className='cards'>
                 {recipes && recipes.map(
                     recipe => { return <RecipeCard 
