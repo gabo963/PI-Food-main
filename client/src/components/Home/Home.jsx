@@ -15,7 +15,7 @@ const Home = () => {
     }, [] );
 
     return(
-        <div>
+        <div className='container'>
             <h3>Recipes:</h3>
             {/* Falta la search bar, el paginado, y los filtros. */}
 
