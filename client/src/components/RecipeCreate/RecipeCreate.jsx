@@ -5,16 +5,42 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getDiets, postRecipe } from "../../redux/actions";
 
-const validate = (form, setErrors, errors ) => {
-    console.log(form.name.length)
-    if( form.name.length > 255 ) setErrors( {...errors, name: "The recipe's name is too long (max 255 chars)"} );
-    else setErrors( {...errors, name: null} )
-	// Name no supere la cantidad de caracteres predeterminada.
-    // Image sea un link
-    // Health score sea un int
-    // Que health score no est debajo de 0 ni encima de 100
-    // Description no supere cantidad default.
-    // step by step no supere cantidad defauilt.
+const validate = (form, errors ) => {
+
+    if( form.name.length === 0 ) errors = {...errors, name: "The Name is empty."};
+    else {
+        if( form.name.length > 255 ) errors = {...errors, name: "The recipe's name is too long (max 255 chars)"};
+        else errors = {...errors, name: ''};
+    }
+
+    if( !Number.isInteger( Number(form.health_score) ) ) errors = {...errors, health_score: "The Health Score should be an integer."};
+    else {
+        if( Number(form.health_score) < 0 || Number(form.health_score) > 100  ) errors = {...errors, health_score: "The Health Score should be less than 100, and more than 0."};
+        else {
+            if( form.health_score == '' ) errors = { ...errors, health_score: 'The Health Score is empty' }
+            else errors = {...errors, health_score: ''};
+        };
+    }
+
+    if( form.description.length === 0 ) errors = {...errors, description: "The Description is empty."};
+    else {
+        if( form.description.length > 2048 ) errors = {...errors, description: "The recipe's description is too long (max 2048 chars)"};
+        else errors = {...errors, description: ''};
+    }
+
+    if( form.step_by_step.length === 0 ) errors = {...errors, step_by_step: "The Step by Step instructions are empty."};
+    else {
+        if( form.step_by_step.length > 2048 ) errors = {...errors, step_by_step: "The recipe's Step by Step instructions is too long (max 2048 chars)"};
+        else errors = {...errors, step_by_step: ''};
+    }
+
+    if( form.image.length === 0 ) errors = {...errors, image: "The image is empty."};
+    else {
+        if( form.image.length > 2048 ) errors = {...errors, image: "The image is too long (max 2048 chars)"};
+        else errors = {...errors, image: ''};
+    }
+
+    return errors;
 };
 
 const RecipeCreate = () => {
@@ -37,26 +63,26 @@ const RecipeCreate = () => {
 	});
 
 	const [errors, setErrors] = useState({
-		name: null,
-		description: null,
-        health_score: null,
-        step_by_step: null,
-        image: null,
-        Diets: null,
+		name: '',
+		description: '',
+        health_score: '',
+        step_by_step: '',
+        image: '',
+        Diets: '',
 	});
 
 	const handleChange = (event) => {
 		const property = event.target.name;
 		const value = event.target.value;
 		setForm({...form, [property]: value});
-		validate( {...form, [property]: value}, setErrors, errors );
+		setErrors( validate( {...form, [property]: value}, errors ));
 	};
 
     const handleChangeSelector = (event) => {
         const property = event.target.name;
 		const value = Array.from(event.target.selectedOptions, option => parseInt(option.value));
         setForm({...form, [property]: value});
-		validate( {...form, [property]: value}, setErrors, errors );
+		setErrors( validate( {...form, [property]: value}, errors ));
     };
 
 	const submitHandler = (event) => {
@@ -100,6 +126,8 @@ const RecipeCreate = () => {
                 <input
                     type="number"
                     name="health_score"
+                    min={0}
+                    max={100}
                     value={form.health_score}
                     onChange={handleChange}
                 />
