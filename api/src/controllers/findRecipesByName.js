@@ -1,8 +1,10 @@
 const { Recipe, Diet } = require("../db");
-const { API_KEY } = process.env;
+const { API_KEY, RECETAS_PARA_DIETAS } = process.env;
 const { Op } = require("sequelize");
 const axios = require('axios');
 const URL = "https://api.spoonacular.com/recipes"
+
+const { validateDiets } = require("./spoonacularTranslations");
 
 const findRecipesByName = async ( name ) => {
     // Consulta las recetas que coincidan al nombre en la base de datos interna y hacer un query a spoonacular. 
@@ -19,7 +21,14 @@ const findRecipesByName = async ( name ) => {
 
     let dbRecipes = await Recipe.findAll({
         where: { name: {[Op.iLike]: `%${name}%`} },
-        attributes: ["ID", "name", "image"],
+        attributes: ["ID", "name", "image", 'health_score'],
+        include: {
+                model: Diet,
+                attributes: ['ID','name'],
+                through: {
+                    attributes: [],
+                },
+            }
     });
 
     dbRecipes = dbRecipes.map( recipe => {
@@ -32,7 +41,7 @@ const findRecipesByName = async ( name ) => {
         }
     });
 
-    let spoonRecipes = await axios.get(`${URL}/complexSearch?query=${name}&apiKey=${API_KEY}`)
+    let spoonRecipes = await axios.get(`${URL}/complexSearch?query=${name}&number=${RECETAS_PARA_DIETAS}&addRecipeInformation=true&apiKey=${API_KEY}`)
     .then((response)=>{
         // Acota los campos
         return response.data.results;
@@ -40,15 +49,22 @@ const findRecipesByName = async ( name ) => {
         throw Error(`There was an error when getting the recipe with id: ${id} from spoonacular.`);
     });
 
-    spoonRecipes = spoonRecipes.map( recipe => {
-        const { id, title, image } = recipe;
+    spoonRecipes = await Promise.all(spoonRecipes.map( async recipe => {
+        let { id, title, image, healthScore, diets, vegetarian, vegan, glutenFree } = recipe;
+
+        if( vegetarian ) diets.push("vegetarian");
+        if( vegan ) diets.push("vegan");
+        if( glutenFree ) diets.push("glutenFree");
+
+        diets = await validateDiets(diets);
+
         if( title.toUpperCase() == name.toUpperCase() ) {
             exactMatch = true;
-            return {ID: id, name: title, image, internalFlag: false, exactMatch: true};
+            return {ID: id, name: title, image, health_score: healthScore, Diets: diets, internalFlag: false, exactMatch: true};
         } else {
-            return {ID: id, name: title, image, internalFlag: false, exactMatch: false};
+            return {ID: id, name: title, image, health_score: healthScore, Diets: diets, internalFlag: false, exactMatch: false};
         }
-    });
+    }));
 
     const recipeArray = [...dbRecipes, ...spoonRecipes];
 
