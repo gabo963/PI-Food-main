@@ -1,6 +1,6 @@
 import axios from 'axios';
 export const GET_RECIPES = "GET_RECIPES"; // TODO: puede venir con query
-export const GET_RECIPE = "GET_RECIPE"; // TODO: Enviar el internal flag
+export const GET_RECIPE = "GET_RECIPE"; // DONE: Enviar el internal flag
 export const GET_DIETS = "GET_DIETS"; // TODO: recibir las dietas.
 export const POST_RECIPE = "POST_RECIPE"; // TODO: Postear la receta.
 
