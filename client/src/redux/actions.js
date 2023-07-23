@@ -46,7 +46,7 @@ export const getDiets = () => {
 
 export const postRecipe = ( recipe ) => {
     return function(dispatch){
-        axios.post(`${URL}/recipes`,{recipe})
+        axios.post(`${URL}/recipes`,recipe)
         .then(data=>dispatch( {type: POST_RECIPE, payload: data.data} ))
         .catch( reason => {
             dispatch({type: POST_RECIPE_ERROR, payload: reason.response.data})

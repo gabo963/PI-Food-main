@@ -8,6 +8,8 @@ import { getRecipes } from "../../redux/actions";
 const Home = () => {
 
     const recipes = useSelector( (state) => state.recipes );
+    const errorsRecipes = useSelector( (state) => state.errors.getRecipesErrors );
+    const errorsDiets = useSelector( (state) => state.errors.getDietsErrors );
     const dispatch = useDispatch();
 
     useEffect( () => {
@@ -16,6 +18,10 @@ const Home = () => {
 
     return(
         <div className='container'>
+
+            {errorsRecipes !== "" ? <p className="error">{errorsRecipes}</p> : ""}
+            {errorsDiets !== "" ? <p className="error">{errorsDiets}</p> : ""}
+
             <h3>Recipes:</h3>
             {/* Falta la search bar, el paginado, y los filtros. */}
 

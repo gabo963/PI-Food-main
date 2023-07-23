@@ -48,6 +48,8 @@ const RecipeCreate = () => {
 
     const diets = useSelector( (state) => state.diets );
     const errorsApi = useSelector( (state) => state.errors.postRecipeErrors );
+    const errorsDiets = useSelector( (state) => state.errors.getDietsErrors );
+    const recipeResult = useSelector( (state) => state.recipe );
     const navigate = useNavigate();
 
     const dispatch = useDispatch();
@@ -55,6 +57,12 @@ const RecipeCreate = () => {
     useEffect( () => {
         dispatch( getDiets() );
     }, [] );
+
+    useEffect( () => {
+        if( errorsApi === "" && recipeResult ) {
+            navigate(`/recipes/${recipeResult.ID}-${true}`);
+        }
+    }, [recipeResult] );
 
 	const [form, setForm] = useState({
 		name: "",
@@ -96,12 +104,8 @@ const RecipeCreate = () => {
         if( !countErrors ) {
             let recipe = {...form};
             recipe = {...recipe, health_score: parseInt(recipe.health_score)};
-            const {name, description, health_score, step_by_step, image, diets} = recipe;  
+            const {name, description, health_score, step_by_step, image, diets} = recipe;
             dispatch( postRecipe( {name, description, health_score, step_by_step, image, diets} ) );
-            if( errorsApi !== "" ) {
-                navigate('/recipes');
-            }
-            console.log(errorsApi);
         }
 	};
 
@@ -178,6 +182,7 @@ const RecipeCreate = () => {
                     {diets && diets.map( diet => { return(<option key={diet.ID} value={diet.ID}>{diet.name}</option>) } )}
                 </select>
                 {errors.diets && <p className="error">{errors.diets}</p> }
+                {errorsDiets !== "" ? <p className="error">{errorsDiets}</p> : ""}
             </div>
             <div className="container">
                 {errorsApi !== "" ? <p className="error">{errorsApi}</p> : ""}
