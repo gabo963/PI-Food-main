@@ -18,9 +18,7 @@ const Home = () => {
     return(
         <div>
             <h3>Recipes:</h3>
-
             <div>
-                <table>
                 {recipes.map(
                     recipe => { return <RecipeCard 
                         key={recipe.ID} 
@@ -28,9 +26,7 @@ const Home = () => {
                         name={recipe.name} 
                         image={recipe.image} /> }
                 )}
-                </table>
             </div>
-
         </div>
     );
 };

@@ -1,9 +1,11 @@
+import "./RecipeCard.css";
+
 const RecipeCard = ({id, name, image}) => {
     return(
         <div className="card">
-            <p>Name: {name}</p>
-            <p>ID: {id}</p>
-            <img src={image} alt={name} width={200}/>
+            <img src={image} alt={name}/>
+            <p><b>Name:</b> {name}</p>
+            <p><b>ID:</b> {id}</p>
             <hr />
         </div>
     );

@@ -1,14 +1,17 @@
 .card img {
-    width: 100px;
+    width: 200px;
     height: auto;
 }
 
 .card {
+    border: 2px solid #e7e7e7;
+    border-radius: 4px;
+    padding: .5rem;
     position: relative;
 }
 
 .card p {
-    color: #fccc3d;
+    color: #000000;
 }
 
 .card button {
