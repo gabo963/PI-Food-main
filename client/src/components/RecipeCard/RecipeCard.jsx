@@ -1,12 +1,16 @@
 import "./RecipeCard.css";
+import { Link } from "react-router-dom";
 
-const RecipeCard = ({id, name, image}) => {
+const RecipeCard = ({id, name, image, diets, internalFlag}) => {
     return(
-        <div className="card">
-            <img src={image} alt={name}/>
-            <p><b>Name:</b> {name}</p>
-            <p><b>ID:</b> {id}</p>
-        </div>
+        <Link to={`/recipes/${id}-${internalFlag}`}>
+            <div className="card">
+                <img src={image} alt={name}/>
+                <p><b>Name:</b> {name} <b>ID:</b> {id}</p>
+                <p><b>Tipos De Dieta:</b>{diets && diets.map(diet => { return ` ${diet.name},` }) } </p>
+                <p><b>Receta Propia:</b> {internalFlag ? 'Si' : 'No'} </p>
+            </div>
+        </Link>
     );
 };
 

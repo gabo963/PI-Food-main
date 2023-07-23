@@ -4,3 +4,9 @@
     grid-auto-rows: auto;
     grid-gap: 1rem;
 }
+
+.container {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+}

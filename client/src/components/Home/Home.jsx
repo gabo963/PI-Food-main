@@ -16,15 +16,19 @@ const Home = () => {
     }, [] );
 
     return(
-        <div>
+        <div className='container'>
             <h3>Recipes:</h3>
+
             <div className='cards'>
                 {recipes.map(
                     recipe => { return <RecipeCard 
                         key={recipe.ID} 
                         id={recipe.ID} 
                         name={recipe.name} 
-                        image={recipe.image} /> }
+                        image={recipe.image}
+                        tiposDeDieta={recipe.diets}
+                        internalFlag={recipe.internalFlag}    
+                    /> }
                 )}
             </div>
         </div>
