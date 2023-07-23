@@ -12,6 +12,7 @@
 }
 
 .icon {
+    width: 70%;
     height: 30px;
     background-color: rgb(255, 255, 255);
     background-image: url('https://www.w3schools.com/css/searchicon.png');

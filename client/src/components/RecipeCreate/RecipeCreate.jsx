@@ -3,7 +3,7 @@ import { useState } from "react";
 
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { getDiets } from "../../redux/actions";
+import { getDiets, postRecipe } from "../../redux/actions";
 
 const validate = (form, setErrors, errors ) => {
 	// Name no supere la cantidad de caracteres predeterminada.
@@ -49,9 +49,22 @@ const RecipeCreate = () => {
 		validate( {...form, [property]: value}, setErrors, errors );
 	};
 
+    const handleChangeSelector = (event) => {
+        const property = event.target.name;
+		const value = Array.from(event.target.selectedOptions, option => parseInt(option.value));
+        setForm({...form, [property]: value});
+		validate( {...form, [property]: value}, setErrors, errors );
+    };
+
 	const submitHandler = (event) => {
 		event.preventDefault(); // Para que la pagina no se recargue.
-        // Acciones para hacer los cambios.
+
+        let countErrors = 0;
+        Object.values(errors).forEach( (v) => {countErrors += v.length;} );
+        if( !countErrors ) {
+            console.log('entra');
+            dispatch( postRecipe( form ) );
+        }
 	};
 
 	return (
@@ -109,14 +122,15 @@ const RecipeCreate = () => {
             </div>
             <div className="container">
                 <div className="container">
-                    <label htmlFor="name">Diet Types:</label>
+                    <label htmlFor="Diets">Diet Types:</label>
                 </div>
                 <select 
                     multiple={true}
                     name="Diets"
-                    onChange={handleChange}
+                    value={form.Diets}
+                    onChange={handleChangeSelector}
                 >
-                    {diets.map( diet => { return(<option value={diet.ID}>{diet.name}</option>) } )}
+                    {diets.map( diet => { return(<option key={diet.ID} value={diet.ID}>{diet.name}</option>) } )}
                 </select>
             </div>
 			<button>Create Recipe</button>

@@ -20,7 +20,7 @@ const Home = () => {
             {/* Falta la search bar, el paginado, y los filtros. */}
 
             <div className='container'>
-                <input type="text" name="search" placeholder='Search...' className='icon'/>
+                <input type="search" name="search" placeholder='Search...' className='icon'/>
             </div>
 
             <div className='cards'>
