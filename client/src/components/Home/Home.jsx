@@ -5,7 +5,6 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRecipes } from "../../redux/actions";
 
-
 const Home = () => {
 
     const recipes = useSelector( (state) => state.recipes );
@@ -18,6 +17,7 @@ const Home = () => {
     return(
         <div className='container'>
             <h3>Recipes:</h3>
+            {/* Falta la search bar, el paginado, y los filtros. */}
 
             <div className='cards'>
                 {recipes.map(
@@ -26,7 +26,7 @@ const Home = () => {
                         id={`${recipe.ID}-${recipe.internalFlag}`} 
                         name={recipe.name} 
                         image={recipe.image}
-                        tiposDeDieta={recipe.Diets}
+                        diets={recipe.Diets}
                         internalFlag={recipe.internalFlag}    
                     /> }
                 )}
