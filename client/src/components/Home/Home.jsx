@@ -4,6 +4,7 @@ import RecipeCard from '../RecipeCard/RecipeCard';
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRecipes } from "../../redux/actions";
+import Pagination from '../Pagination/Pagination';
 
 const Home = () => {
 
@@ -41,6 +42,9 @@ const Home = () => {
                     /> }
                 )}
             </div>
+
+            <Pagination recipes={recipes}/>
+
         </div>
     );
 };
