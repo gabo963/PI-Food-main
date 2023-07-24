@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getRecipes } from "../../redux/actions";
 import { useState } from "react";
 import Pagination from '../Pagination/Pagination';
+import Filtering from '../Filtering/Filtering'
 
 const Home = () => {
 
@@ -17,6 +18,10 @@ const Home = () => {
     useEffect( () => {
         dispatch( getRecipes() );
     }, [] );
+
+    useEffect( () => {
+        const cards = recipes.slice(primerIndex, ultimoIndex);
+    }, [recipes] );
 
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
@@ -33,11 +38,9 @@ const Home = () => {
             {errorsDiets !== "" ? <p className="error">{errorsDiets}</p> : ""}
 
             <h3>Recipes:</h3>
-            {/* Falta la search bar, el paginado, y los filtros. */}
+            {/* Falta la search bar, y los filtros. */}
 
-            <div className='container'>
-                <input type="search" name="search" placeholder='Search...' className='icon'/>
-            </div>
+            <Filtering />
 
             <div className='cards'>
                 {cards && cards.map(

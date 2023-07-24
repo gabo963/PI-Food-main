@@ -16,11 +16,19 @@ const URL = "http://localhost:3001";
 
 export const getRecipes = (name) => {
     return function(dispatch){
-        axios.get(`${URL}/recipes`)
-        .then(data=>dispatch( {type: GET_RECIPES, payload: data.data} ))
-        .catch( reason => {
-            dispatch({type: GET_RECIPES_ERROR, payload: reason.response.data})
-        });
+        if( name ) {
+            axios.get(`${URL}/recipes`,{params: {name}})
+            .then(data=>dispatch( {type: GET_RECIPES, payload: data.data} ))
+            .catch( reason => {
+                dispatch({type: GET_RECIPES_ERROR, payload: reason.response.data})
+            });
+        } else {
+            axios.get(`${URL}/recipes`)
+            .then(data=>dispatch( {type: GET_RECIPES, payload: data.data} ))
+            .catch( reason => {
+                dispatch({type: GET_RECIPES_ERROR, payload: reason.response.data})
+            });
+        }
     };
 };
 
