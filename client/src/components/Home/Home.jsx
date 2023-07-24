@@ -1,19 +1,23 @@
 import './Home.css';
 
-import RecipeCard from '../RecipeCard/RecipeCard';
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRecipes } from "../../redux/actions";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import RecipeCard from '../RecipeCard/RecipeCard';
 import Pagination from '../Pagination/Pagination';
 import Filtering from '../Filtering/Filtering'
 
 const Home = () => {
 
     const recipes = useSelector( (state) => state.recipes );
+    const match = useSelector( (state) => state.match );
     const errorsRecipes = useSelector( (state) => state.errors.getRecipesErrors );
     const errorsDiets = useSelector( (state) => state.errors.getDietsErrors );
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     useEffect( () => {
         dispatch( getRecipes() );
@@ -21,7 +25,11 @@ const Home = () => {
 
     useEffect( () => {
         const cards = recipes.slice(primerIndex, ultimoIndex);
-    }, [recipes] );
+        if( match ) {
+            const receta = recipes.filter( recipe => recipe.exactMatch )
+            navigate(`/recipes/${receta[0].ID}-${receta[0].internalFlag}`);
+        }
+    }, [recipes, match] );
 
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);

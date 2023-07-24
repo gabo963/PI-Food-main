@@ -13,7 +13,7 @@ const Filtering = () => {
     return (
         <div className='container'>
             <input type="search" name="search" placeholder='Search...' className='icon' onChange={ (event) => setSearch(event.target.value) }/>
-            <button onClick={()=>{dispatch( getRecipes(search) )}}>Search</button>
+            <button className="boton" onClick={()=>{dispatch( getRecipes(search) )}}>Search</button>
         </div> 
     )
 };
