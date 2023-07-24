@@ -4,6 +4,7 @@ import RecipeCard from '../RecipeCard/RecipeCard';
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { getRecipes } from "../../redux/actions";
+import { useState } from "react";
 import Pagination from '../Pagination/Pagination';
 
 const Home = () => {
@@ -17,6 +18,14 @@ const Home = () => {
         dispatch( getRecipes() );
     }, [] );
 
+    // Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const postsPerPage = 9;
+
+    const ultimoIndex = currentPage * postsPerPage;
+    const primerIndex = ultimoIndex - postsPerPage;
+    const cards = recipes.slice(primerIndex, ultimoIndex);
+        
     return(
         <div className='container'>
 
@@ -31,7 +40,7 @@ const Home = () => {
             </div>
 
             <div className='cards'>
-                {recipes && recipes.map(
+                {cards && cards.map(
                     recipe => { return <RecipeCard 
                         key={`${recipe.ID}-${recipe.internalFlag}`} 
                         id={`${recipe.ID}-${recipe.internalFlag}`} 
@@ -43,7 +52,7 @@ const Home = () => {
                 )}
             </div>
 
-            <Pagination recipes={recipes}/>
+            <Pagination totalPosts={recipes.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage}/>
 
         </div>
     );

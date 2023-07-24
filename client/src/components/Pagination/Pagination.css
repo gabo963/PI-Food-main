@@ -3,11 +3,23 @@
 }
 
 .numero {
-    background-color: chocolate;
-    float: left;
-    padding: 50px;
+    width: 40px;
+    height: 40px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 16px;
+    margin: 0 10px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: transparent;
+    color: #161313;
+    border-color: #eee;
 }
 
 .contenedor {
-    padding-right:15px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-top: 1rem;
 }

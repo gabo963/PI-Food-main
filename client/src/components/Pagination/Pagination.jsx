@@ -1,19 +1,16 @@
-import { Link } from "react-router-dom";
 import "./Pagination.css";
 
-const Pagination = ( {recipes} ) => {
+const Pagination = ( {totalPosts, postsPerPage, setCurrentPage} ) => {
 
-    const perPage = 9;
-    let pages = parseInt(recipes.length / perPage);
-    pages = pages < 1 ? 1 : pages;
-    const numeros = [];
-    for( let i = 0; i < pages; i++ ) {
-        numeros.push(i+1);
+    const pages = [];
+
+    for( let i = 1; i <= Math.ceil(totalPosts / postsPerPage); i++ ) {
+        pages.push(i);
     }
 
     return( 
         <div className="contenedor">
-            {numeros && numeros.map( numero => <div className="numero" >{numero}</div> )}
+            {pages && pages.map( page => <button className="numero" key={page} onClick={()=>{setCurrentPage(page)}}>{page}</button> )}
         </div>
      )
 };
