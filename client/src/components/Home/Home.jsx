@@ -46,8 +46,6 @@ const Home = () => {
             {errorsDiets !== "" ? <p className="error">{errorsDiets}</p> : ""}
 
             <h3>Recipes:</h3>
-            {/* Falta la search bar, y los filtros. */}
-
             <Filtering />
 
             <div className='cards'>

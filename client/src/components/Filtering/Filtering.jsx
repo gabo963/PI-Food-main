@@ -12,9 +12,14 @@ const Filtering = () => {
 
     return (
         <div className='container'>
-            <input type="search" name="search" placeholder='Search...' className='icon' onChange={ (event) => setSearch(event.target.value) }/>
-            <button className="boton" onClick={()=>{dispatch( getRecipes(search) )}}>Search</button>
-        </div> 
+            <div className='container'>
+                <input type="search" name="search" placeholder='Search...' className='icon' onChange={ (event) => setSearch(event.target.value) }/>
+                <button className="boton" onClick={()=>{dispatch( getRecipes(search) )}}>Search</button>
+            </div> 
+            <div className="container">
+                {/* Filtering and ordering */}
+            </div>
+        </div>
     )
 };
 
