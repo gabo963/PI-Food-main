@@ -19,7 +19,8 @@ const filtering = (action, state) => {
 };
 
 const sorting = (action, state) => {
-    if( action.payload.orderMethod === '' ) return [];
+
+    //state.recipes
     
     if( action.payload.orderMethod === 'Health Score' ) {
         console.log(action.payload.order); // ascending / descending
