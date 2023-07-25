@@ -43,8 +43,7 @@ recipeRouter.post('/', async (req,res) => {
         const newRecipe = await createRecipe( recipeData );
         res.status(201).json(newRecipe);
     } catch (error) {
-        if ( error.message == "Validation error") res.status(400).json({error: `La Receta con nombre: "${req.body.name}" ya existe.`});
-        else res.status(400).json({error: error.message});
+        res.status(400).json({error: error.message});
     }
 });
 
