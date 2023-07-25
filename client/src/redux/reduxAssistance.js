@@ -24,9 +24,7 @@ function compareAlphabetFunction(a,b) {
 
 const sorting = (action, state) => {
 
-    //state.recipes
     const filteredArray = [...state.recipes];
-    console.log(action.payload.orderMethod);
     
     if( action.payload.orderMethod === 'Health Score' ) {
         if( action.payload.order === 'ascending' )  {
@@ -38,8 +36,12 @@ const sorting = (action, state) => {
     }
 
     if( action.payload.orderMethod === 'Alphabetical' ) {
-        console.log(action.payload.order);
-        return [];
+        if( action.payload.order === 'ascending' )  {
+            filteredArray.sort((a,b) => a.name.toLowerCase().charCodeAt(0) - b.name.toLowerCase().charCodeAt(0));
+        } else {
+            filteredArray.sort((a,b) => -1*(a.name.toLowerCase().charCodeAt(0) - b.name.toLowerCase().charCodeAt(0)));
+        }
+        return filteredArray;
     }
 
     return [];
