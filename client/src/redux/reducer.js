@@ -1,5 +1,7 @@
-import { GET_RECIPES, GET_RECIPE, GET_DIETS, POST_RECIPE, FILTER_RECIPES, RESET_FILTER_RECIPES } from "./actions";
+import { GET_RECIPES, GET_RECIPE, GET_DIETS, POST_RECIPE, FILTER_RECIPES, ORDER_RECIPES, RESET_RECIPES } from "./actions";
 import { GET_RECIPES_ERROR, GET_RECIPE_ERROR, GET_DIETS_ERROR, POST_RECIPE_ERROR } from "./actions";
+
+import { filtering, sorting } from './reduxAssistance'
 // import { DELETE_RECIPE, PUT_RECIPE} from "./actions";
 
 const initialState = {
@@ -37,25 +39,11 @@ const rootReducer = (state=initialState, action) => {
         case POST_RECIPE_ERROR:
             return {...state, errors: {...state.errors, postRecipeErrors: action.payload.error}};
         case FILTER_RECIPES:
-            return {...state, filteredRecipes: state.recipes.filter( recipe => {
-                if( Array.isArray(action.payload.value) ) {
-                    if( Array.isArray(recipe[action.payload.name]) ) {
-                        for( let i = 0; i < action.payload.value.length; i++ ) {
-                            for( let j = 0; j < recipe[action.payload.name].length; j++ ) {
-                                if(recipe[action.payload.name][j][action.payload.field] === action.payload.value[i]) return true;
-                            }
-                        }
-                    } else {
-                        for( let i = 0; i < action.payload.value.length; i++ ) {
-                            if(recipe[action.payload.name] === action.payload.value[i]) return true;
-                        }
-                    }
-                } else {
-                    return recipe[action.payload.name] == action.payload.value;
-                }
-            })};
-        case RESET_FILTER_RECIPES:
+            return {...state, filteredRecipes: filtering( action, state )};
+        case RESET_RECIPES:
             return {...state, filteredRecipes: []};
+        case ORDER_RECIPES:
+            return {...state, filteredRecipes: state.recipes.sort( sorting ) };
         // case DELETE_RECIPE:
         //     return {...state, recipes: state.recipes.filter(recipe => recipe.id !== action.payload.id)};
         // case PUT_RECIPE: 
@@ -66,8 +54,6 @@ const rootReducer = (state=initialState, action) => {
         default: 
             return {...state};
     }
-}; 
-
-// TODO: https://stackoverflow.com/questions/58266418/correct-way-of-error-handling-in-react-redux
+};
 
 export default rootReducer;

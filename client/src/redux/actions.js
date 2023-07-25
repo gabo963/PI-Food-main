@@ -1,10 +1,11 @@
 import axios from 'axios';
-export const GET_RECIPES = "GET_RECIPES"; // TODO: puede venir con query
+export const GET_RECIPES = "GET_RECIPES"; // DONE: puede venir con query
 export const GET_RECIPE = "GET_RECIPE"; // DONE: Enviar el internal flag
 export const GET_DIETS = "GET_DIETS"; // DONE: recibir las dietas.
 export const POST_RECIPE = "POST_RECIPE"; // DONE: Postear la receta.
 export const FILTER_RECIPES = "FILTER_RECIPES";
-export const RESET_FILTER_RECIPES = "RESET_FILTER_RECIPES";
+export const ORDER_RECIPES = "ORDER_RECIPES";
+export const RESET_RECIPES = "RESET_RECIPES";
 
 export const GET_RECIPES_ERROR = "GET_RECIPES_ERROR";
 export const POST_RECIPE_ERROR = "POST_RECIPE_ERROR";
@@ -70,8 +71,14 @@ export const filterRecipes = (filter) => {
     };
 };
 
-export const resetFilterRecipes = (filter) => {
+export const resetRecipes = (filter) => {
     return function(dispatch){
-        dispatch({type: RESET_FILTER_RECIPES });
+        dispatch({type: RESET_RECIPES });
+    };
+};
+
+export const orderRecipes = (order) => {
+    return function(dispatch){
+        dispatch({type: ORDER_RECIPES });
     };
 };
