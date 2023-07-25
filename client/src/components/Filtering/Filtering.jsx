@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
 
-import { getRecipes, getDiets, filterRecipes, resetRecipes } from "../../redux/actions";
+import { getRecipes, getDiets, filterRecipes, resetRecipes, orderRecipes } from "../../redux/actions";
 
 const Filtering = () => {
 
@@ -42,7 +42,10 @@ const Filtering = () => {
     }, [selectedFlag] );
 
     useEffect( () => {
-        
+        dispatch( orderRecipes( {
+            ordermethod: selectedOrderMethod,
+            order: selectedOrder
+        } ) );
     }, [selectedOrderMethod] );
 
     useEffect( () => {

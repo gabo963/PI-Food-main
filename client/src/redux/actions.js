@@ -79,6 +79,6 @@ export const resetRecipes = (filter) => {
 
 export const orderRecipes = (order) => {
     return function(dispatch){
-        dispatch({type: ORDER_RECIPES });
+        dispatch({type: ORDER_RECIPES, payload: order });
     };
 };

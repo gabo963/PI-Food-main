@@ -43,7 +43,7 @@ const rootReducer = (state=initialState, action) => {
         case RESET_RECIPES:
             return {...state, filteredRecipes: []};
         case ORDER_RECIPES:
-            return {...state, filteredRecipes: state.recipes.sort( sorting ) };
+            return {...state, filteredRecipes: sorting( action, state ) };
         // case DELETE_RECIPE:
         //     return {...state, recipes: state.recipes.filter(recipe => recipe.id !== action.payload.id)};
         // case PUT_RECIPE: 

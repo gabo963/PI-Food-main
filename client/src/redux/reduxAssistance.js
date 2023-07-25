@@ -18,8 +18,20 @@ const filtering = (action, state) => {
     });
 };
 
-const sorting = (a,b) => {
+const sorting = (action, state) => {
+    if( action.payload.orderMethod === '' ) return [];
+    
+    if( action.payload.orderMethod === 'Health Score' ) {
+        console.log(action.payload.order); // ascending / descending
+        return [];
+    }
 
+    if( action.payload.orderMethod === 'Alphabetical' ) {
+        console.log(action.payload.order);
+        return [];
+    }
+
+    return [];
 }; 
 
 export { filtering, sorting };
