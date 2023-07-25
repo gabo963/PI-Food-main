@@ -10,12 +10,12 @@ const Filtering = () => {
 
     const [search, setSearch] = useState('');
     const [selectedDiets, setDiets] = useState([]);
-    const [selectedFlag, setFlag] = useState(null);
+    const [selectedFlag, setFlag] = useState(undefined);
     const diets = useSelector( (state) => state.diets );
 
     const dispatch = useDispatch();
 
-    const flags = [ {ID: 0, name: 'Own Recipe', value: true}, {ID: 1, name: 'External Recipe', value: false} ];
+    const flags = [ {ID: 0, name: 'Own Recipe', value: 1}, {ID: 1, name: 'External Recipe', value: 0} ];
 
     useEffect( () => {
         dispatch( getDiets() );

@@ -57,7 +57,7 @@ const rootReducer = (state=initialState, action) => {
                         }
                     }
                 } else {
-                    return recipe[action.payload.name] === action.payload.value;
+                    return recipe[action.payload.name] == action.payload.value;
                 }
             })};
         case RESET_FILTER_RECIPES:
