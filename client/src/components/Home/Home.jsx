@@ -35,13 +35,7 @@ const Home = () => {
 
     useEffect( () => {
         cards = filteredRecipes.slice(primerIndex, ultimoIndex);
-        if( match ) {
-            const receta = recipes.filter( recipe => recipe.exactMatch )
-            navigate(`/recipes/${receta[0].ID}-${receta[0].internalFlag}`);
-        }
     }, [filteredRecipes] );
-
-    //Filtering
 
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
@@ -49,7 +43,7 @@ const Home = () => {
 
     const ultimoIndex = currentPage * postsPerPage;
     const primerIndex = ultimoIndex - postsPerPage;
-    cards = filteredRecipes ? filteredRecipes.slice(primerIndex, ultimoIndex) : recipes.slice(primerIndex, ultimoIndex);
+    cards = filteredRecipes.length ? filteredRecipes.slice(primerIndex, ultimoIndex) : recipes.slice(primerIndex, ultimoIndex);
         
     return(
         <div className='container'>
@@ -73,7 +67,7 @@ const Home = () => {
                 )}
             </div>
 
-            <Pagination totalPosts={recipes.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage}/>
+            <Pagination totalPosts={filteredRecipes.length ? filteredRecipes.length : recipes.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage}/>
 
         </div>
     );

@@ -4,6 +4,7 @@ export const GET_RECIPE = "GET_RECIPE"; // DONE: Enviar el internal flag
 export const GET_DIETS = "GET_DIETS"; // DONE: recibir las dietas.
 export const POST_RECIPE = "POST_RECIPE"; // DONE: Postear la receta.
 export const FILTER_RECIPES = "FILTER_RECIPES";
+export const RESET_FILTER_RECIPES = "RESET_FILTER_RECIPES";
 
 export const GET_RECIPES_ERROR = "GET_RECIPES_ERROR";
 export const POST_RECIPE_ERROR = "POST_RECIPE_ERROR";
@@ -66,5 +67,11 @@ export const postRecipe = ( recipe ) => {
 export const filterRecipes = (filter) => {
     return function(dispatch){
         dispatch({type: FILTER_RECIPES, payload: filter});
+    };
+};
+
+export const resetFilterRecipes = (filter) => {
+    return function(dispatch){
+        dispatch({type: RESET_FILTER_RECIPES });
     };
 };

@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useEffect } from "react";
 
-import { getRecipes, getDiets, filterRecipes } from "../../redux/actions";
+import { getRecipes, getDiets, filterRecipes, resetFilterRecipes } from "../../redux/actions";
 
 const Filtering = () => {
 
@@ -40,7 +40,8 @@ const Filtering = () => {
             <div className="container">
                     <select  multiple={true} name="diets" value={selectedDiets} onChange={changeDiets}>
                         {diets && diets.map( diet => { return(<option key={diet.ID} value={diet.ID}>{diet.name}</option>) } )}
-                    </select>   
+                    </select>
+                    <button className="boton" onClick={()=>{dispatch( resetFilterRecipes() )}}>Reset</button>
             </div>
         </div>
     )

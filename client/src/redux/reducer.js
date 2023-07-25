@@ -1,4 +1,4 @@
-import { GET_RECIPES, GET_RECIPE, GET_DIETS, POST_RECIPE, FILTER_RECIPES } from "./actions";
+import { GET_RECIPES, GET_RECIPE, GET_DIETS, POST_RECIPE, FILTER_RECIPES, RESET_FILTER_RECIPES } from "./actions";
 import { GET_RECIPES_ERROR, GET_RECIPE_ERROR, GET_DIETS_ERROR, POST_RECIPE_ERROR } from "./actions";
 // import { DELETE_RECIPE, PUT_RECIPE} from "./actions";
 
@@ -60,6 +60,8 @@ const rootReducer = (state=initialState, action) => {
                     return recipe[action.payload.name] === action.payload.value;
                 }
             })};
+        case RESET_FILTER_RECIPES:
+            return {...state, filteredRecipes: []};
         // case DELETE_RECIPE:
         //     return {...state, recipes: state.recipes.filter(recipe => recipe.id !== action.payload.id)};
         // case PUT_RECIPE: 
