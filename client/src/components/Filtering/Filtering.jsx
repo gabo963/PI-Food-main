@@ -42,15 +42,12 @@ const Filtering = () => {
     }, [selectedFlag] );
 
     useEffect( () => {
+        console.log('entra');
         dispatch( orderRecipes( {
-            ordermethod: selectedOrderMethod,
+            orderMethod: selectedOrderMethod,
             order: selectedOrder
         } ) );
-    }, [selectedOrderMethod] );
-
-    useEffect( () => {
-        
-    }, [selectedOrder] );
+    }, [selectedOrderMethod, selectedOrder] );
 
     const changeDiets = (event) => {
         const values = Array.from(event.target.selectedOptions, option => parseInt(option.value));

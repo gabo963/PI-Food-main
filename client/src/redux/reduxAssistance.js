@@ -18,13 +18,23 @@ const filtering = (action, state) => {
     });
 };
 
+function compareAlphabetFunction(a,b) {
+    
+}
+
 const sorting = (action, state) => {
 
     //state.recipes
+    const filteredArray = [...state.recipes];
+    console.log(action.payload.orderMethod);
     
     if( action.payload.orderMethod === 'Health Score' ) {
-        console.log(action.payload.order); // ascending / descending
-        return [];
+        if( action.payload.order === 'ascending' )  {
+            filteredArray.sort((a,b) => a.health_score - b.health_score);
+        } else {
+            filteredArray.sort((a,b) => -1*(a.health_score - b.health_score));
+        }
+        return filteredArray;
     }
 
     if( action.payload.orderMethod === 'Alphabetical' ) {
@@ -33,6 +43,6 @@ const sorting = (action, state) => {
     }
 
     return [];
-}; 
+};
 
 export { filtering, sorting };
