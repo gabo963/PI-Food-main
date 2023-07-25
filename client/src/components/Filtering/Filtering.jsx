@@ -53,8 +53,19 @@ const Filtering = () => {
                 <input type="search" name="search" placeholder='Search...' className='icon' onChange={ (event) => setSearch(event.target.value) }/>
                 <button className="boton" onClick={()=>{dispatch( getRecipes(search) )}}>Search</button>
             </div>
-            <p><b>Filters:</b></p>
+            <h3>Selection:</h3>
             <div className="varios">
+                <div className="varios">
+                    <p><b>Filters:</b></p>
+                    <select className="objects" multiple={true} name="diets" value={selectedDiets} onChange={changeDiets}>
+                        {diets && diets.map( diet => { return(<option key={diet.ID} value={diet.ID}>{diet.name}</option>) } )}
+                    </select>
+                    <select className="objects" multiple={false} name="internalFlag" value={selectedFlag} onChange={changeFlag}>
+                        {flags && flags.map( flag => { return(<option key={flag.ID} value={flag.value}>{flag.name}</option>) } )}
+                    </select>
+                </div>
+                <div className="varios">
+                    <p><b>Ordering:</b></p>
                     <select className="objects" multiple={true} name="diets" value={selectedDiets} onChange={changeDiets}>
                         {diets && diets.map( diet => { return(<option key={diet.ID} value={diet.ID}>{diet.name}</option>) } )}
                     </select>
@@ -62,6 +73,7 @@ const Filtering = () => {
                         {flags && flags.map( flag => { return(<option key={flag.ID} value={flag.value}>{flag.name}</option>) } )}
                     </select>
                     <button className="boton" onClick={()=>{dispatch( resetFilterRecipes() )}}>Reset</button>
+                </div>
             </div>
         </div>
     )

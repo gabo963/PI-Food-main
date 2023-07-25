@@ -51,7 +51,7 @@ const Home = () => {
             {errorsRecipes !== "" ? <p className="error">{errorsRecipes}</p> : ""}
             {errorsDiets !== "" ? <p className="error">{errorsDiets}</p> : ""}
 
-            <h3>Recipes:</h3>
+            <h2>Recipes:</h2>
             <Filtering />
 
             <div className='cards'>
