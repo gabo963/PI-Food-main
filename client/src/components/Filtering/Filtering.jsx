@@ -10,9 +10,12 @@ const Filtering = () => {
 
     const [search, setSearch] = useState('');
     const [selectedDiets, setDiets] = useState([]);
+    const [selectedFlag, setFlag] = useState(null);
     const diets = useSelector( (state) => state.diets );
 
     const dispatch = useDispatch();
+
+    const flags = [ {ID: 0, name: 'Own Recipe', value: true}, {ID: 1, name: 'External Recipe', value: false} ];
 
     useEffect( () => {
         dispatch( getDiets() );
@@ -26,9 +29,22 @@ const Filtering = () => {
         } ) );
     }, [selectedDiets] );
 
+    useEffect( () => {
+        dispatch( filterRecipes( {
+            name: "internalFlag",
+            field: '',
+            value: selectedFlag
+        } ) );
+    }, [selectedFlag] );
+
     const changeDiets = (event) => {
         const values = Array.from(event.target.selectedOptions, option => parseInt(option.value));
         setDiets(values);
+    };
+
+    const changeFlag = (event) => {
+        const value = event.target.value;
+        setFlag(value);
     };
 
     return (
@@ -36,10 +52,14 @@ const Filtering = () => {
             <div className='container'>
                 <input type="search" name="search" placeholder='Search...' className='icon' onChange={ (event) => setSearch(event.target.value) }/>
                 <button className="boton" onClick={()=>{dispatch( getRecipes(search) )}}>Search</button>
-            </div> 
-            <div className="container">
-                    <select  multiple={true} name="diets" value={selectedDiets} onChange={changeDiets}>
+            </div>
+            <p><b>Filters:</b></p>
+            <div className="varios">
+                    <select className="objects" multiple={true} name="diets" value={selectedDiets} onChange={changeDiets}>
                         {diets && diets.map( diet => { return(<option key={diet.ID} value={diet.ID}>{diet.name}</option>) } )}
+                    </select>
+                    <select className="objects" multiple={false} name="internalFlag" value={selectedFlag} onChange={changeFlag}>
+                        {flags && flags.map( flag => { return(<option key={flag.ID} value={flag.value}>{flag.name}</option>) } )}
                     </select>
                     <button className="boton" onClick={()=>{dispatch( resetFilterRecipes() )}}>Reset</button>
             </div>

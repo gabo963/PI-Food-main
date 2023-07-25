@@ -66,9 +66,8 @@ const Home = () => {
                     /> }
                 )}
             </div>
-
+            
             <Pagination totalPosts={filteredRecipes.length ? filteredRecipes.length : recipes.length} postsPerPage={postsPerPage} setCurrentPage={setCurrentPage}/>
-
         </div>
     );
 };
