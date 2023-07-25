@@ -75,7 +75,6 @@ const Filtering = () => {
                 <input type="search" name="search" placeholder='Search...' className='icon' onChange={ (event) => setSearch(event.target.value) }/>
                 <button className="boton" onClick={()=>{dispatch( getRecipes(search) )}}>Search</button>
             </div>
-            <h3>Selection:</h3>
             <div className="varios">
                 <div className="varios">
                     <p><b>Filters:</b></p>
