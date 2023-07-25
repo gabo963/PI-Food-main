@@ -4,6 +4,7 @@
     grid-auto-rows: auto;
     grid-gap: 1rem;
     background-color: bisque;
+    margin-top: 10px;
 }
 
 .container {
