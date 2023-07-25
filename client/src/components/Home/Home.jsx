@@ -31,6 +31,8 @@ const Home = () => {
         }
     }, [recipes, match] );
 
+    //Filtering
+
     // Pagination
     const [currentPage, setCurrentPage] = useState(1);
     const postsPerPage = 9;

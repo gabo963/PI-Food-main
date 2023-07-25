@@ -1,14 +1,34 @@
 import "./Filtering.css";
 
-import { useDispatch } from "react-redux";
-import { getRecipes } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { useEffect } from "react";
+
+import { getRecipes, getDiets, filterRecipes } from "../../redux/actions";
 
 const Filtering = () => {
 
     const [search, setSearch] = useState('');
+    const [selectedDiets, setDiets] = useState([]);
+    const diets = useSelector( (state) => state.diets );
 
     const dispatch = useDispatch();
+
+    useEffect( () => {
+        dispatch( getDiets() );
+    }, [] );
+
+    useEffect( () => {
+        dispatch( filterRecipes( {
+            name: "Diets",
+            value: selectedDiets
+        } ) );
+    }, [selectedDiets] );
+
+    const changeDiets = (event) => {
+        const values = Array.from(event.target.selectedOptions, option => parseInt(option.value));
+        setDiets(values);
+    };
 
     return (
         <div className='container'>
@@ -17,7 +37,9 @@ const Filtering = () => {
                 <button className="boton" onClick={()=>{dispatch( getRecipes(search) )}}>Search</button>
             </div> 
             <div className="container">
-                {/* Filtering and ordering */}
+                    <select  multiple={true} name="diets" value={selectedDiets} onChange={changeDiets}>
+                        {diets && diets.map( diet => { return(<option key={diet.ID} value={diet.ID}>{diet.name}</option>) } )}
+                    </select>   
             </div>
         </div>
     )

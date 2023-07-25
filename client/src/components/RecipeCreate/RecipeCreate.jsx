@@ -98,7 +98,6 @@ const RecipeCreate = () => {
 
 	const submitHandler = (event) => {
 		event.preventDefault(); // Para que la pagina no se recargue.
-
         let countErrors = 0;
         Object.values(errors).forEach( (v) => {countErrors += v.length;} );
         if( !countErrors ) {
