@@ -13,23 +13,33 @@ import Filtering from '../Filtering/Filtering'
 const Home = () => {
 
     const recipes = useSelector( (state) => state.recipes );
+    const filteredRecipes = useSelector( (state) => state.filteredRecipes );
     const match = useSelector( (state) => state.match );
     const errorsRecipes = useSelector( (state) => state.errors.getRecipesErrors );
     const errorsDiets = useSelector( (state) => state.errors.getDietsErrors );
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    let cards = [];
 
     useEffect( () => {
         dispatch( getRecipes() );
     }, [] );
 
     useEffect( () => {
-        const cards = recipes.slice(primerIndex, ultimoIndex);
+        cards = recipes.slice(primerIndex, ultimoIndex);
         if( match ) {
             const receta = recipes.filter( recipe => recipe.exactMatch )
             navigate(`/recipes/${receta[0].ID}-${receta[0].internalFlag}`);
         }
     }, [recipes, match] );
+
+    useEffect( () => {
+        cards = filteredRecipes.slice(primerIndex, ultimoIndex);
+        if( match ) {
+            const receta = recipes.filter( recipe => recipe.exactMatch )
+            navigate(`/recipes/${receta[0].ID}-${receta[0].internalFlag}`);
+        }
+    }, [filteredRecipes] );
 
     //Filtering
 
@@ -39,7 +49,7 @@ const Home = () => {
 
     const ultimoIndex = currentPage * postsPerPage;
     const primerIndex = ultimoIndex - postsPerPage;
-    const cards = recipes.slice(primerIndex, ultimoIndex);
+    cards = filteredRecipes ? filteredRecipes.slice(primerIndex, ultimoIndex) : recipes.slice(primerIndex, ultimoIndex);
         
     return(
         <div className='container'>

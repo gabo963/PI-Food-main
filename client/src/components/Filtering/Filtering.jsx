@@ -21,6 +21,7 @@ const Filtering = () => {
     useEffect( () => {
         dispatch( filterRecipes( {
             name: "Diets",
+            field: 'ID',
             value: selectedDiets
         } ) );
     }, [selectedDiets] );

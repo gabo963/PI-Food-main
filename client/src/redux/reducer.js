@@ -4,6 +4,7 @@ import { GET_RECIPES_ERROR, GET_RECIPE_ERROR, GET_DIETS_ERROR, POST_RECIPE_ERROR
 
 const initialState = {
     recipes: [],
+    filteredRecipes: [],
     diets: [],
     recipe: null,
     match: false,
@@ -36,14 +37,23 @@ const rootReducer = (state=initialState, action) => {
         case POST_RECIPE_ERROR:
             return {...state, errors: {...state.errors, postRecipeErrors: action.payload.error}};
         case FILTER_RECIPES:
-            return {...state, recipes: state.recipes.filter( recipe => {
+            return {...state, filteredRecipes: state.recipes.filter( recipe => {
                 if( Array.isArray(action.payload.value) ) {
-                    for( let i = 0; i < action.payload.value.length; i++ ) {
-                        for( let j = 0; j < recipe[action.payload.name].length; j++ ) {
-                            if(recipe[action.payload.name][j].ID === action.payload.value[i]) {
+                    if( Array.isArray(recipe[action.payload.name]) ) {
+                        for( let i = 0; i < action.payload.value.length; i++ ) {
+                            for( let j = 0; j < recipe[action.payload.name].length; j++ ) {
+                                if(recipe[action.payload.name][j][action.payload.field] === action.payload.value[i]) {
+                                    return true;
+                                    break;
+                                }
+                            }
+                        }
+                    } else {
+                        for( let i = 0; i < action.payload.value.length; i++ ) {
+                            if(recipe[action.payload.name] === action.payload.value[i]) {
                                 return true;
                                 break;
-                            }
+                            }  
                         }
                     }
                 } else {
